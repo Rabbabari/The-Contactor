@@ -2,20 +2,17 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
-const Contact = ({}) => {
+const Contact = ({ name, number }) => {
 	const { navigate } = useNavigation();
 
 	return (
 		<View style={styles.contact}>
-			<Text>
-				This should be the contact info on the main Contact page
-			</Text>
-			<Text>Name</Text>
-			<Text>Number</Text>
+			<Text>{name}</Text>
+			<Text>{number}</Text>
 			<Text>Photo</Text>
-			<TouchableOpacity onPress={() => navigate("DetailedContacts")}>
+			{/* <TouchableOpacity onPress={() => navigate("DetailedContacts")}>
 				<Text>Move to detailed contacts</Text>
-			</TouchableOpacity>
+			</TouchableOpacity> */}
 		</View>
 	);
 };
@@ -23,6 +20,7 @@ const Contact = ({}) => {
 const styles = StyleSheet.create({
 	contact: {
 		backgroundColor: "pink",
+		margin: 10,
 	},
 });
 
