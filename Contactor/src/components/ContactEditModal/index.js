@@ -77,7 +77,7 @@ const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
 	);
 };
 
-ContactEditModal.propTypes = {
+EditContactModal.propTypes = {
 	// Indicator that the Modal is open
 	isOpen: PropTypes.bool.isRequired,
 	// Function to close the Modal

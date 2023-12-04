@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, Image, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import styles from "./styles";
@@ -8,7 +8,7 @@ import * as fileService from "../../services/fileService";
 import CreateContactModal from "../../components/CreateContactModal";
 import EditContactModal from "../../components/ContactEditModal";
 
-const Contacts = ({ navigation: { navigate } }) => {
+const Contacts = ({}) => {
 	const [contacts, setContacts] = useState([]);
 	const navigation = useNavigation();
 	const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
