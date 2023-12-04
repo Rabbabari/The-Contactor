@@ -17,15 +17,59 @@ const Contacts = ({}) => {
 	const [isEditMContactModalOpen, setIsEditContactModalOpen] =
 		useState(false);
 	const [searchQuery, setSearchQuery] = useState("");
+	// const [contacts, setContacts] = useState([
+	// 	{
+	// 		name: "Valmar",
+	// 		number: 335,
+	// 		photo: "https://photutorial.com/wp-content/uploads/2022/03/Selfies-statistics-thumbnail.png",
+	// 	},
+	// 	{
+	// 		name: "Rebekka",
+	// 		number: 9383,
+	// 		photo: "https://photutorial.com/wp-content/uploads/2022/03/Selfies-statistics-thumbnail.png",
+	// 	},
+	// 	{
+	// 		name: "Lovisa",
+	// 		number: 2234,
+	// 		photo: "https://photutorial.com/wp-content/uploads/2022/03/Selfies-statistics-thumbnail.png",
+	// 	},
+	// 	{
+	// 		name: "Anna",
+	// 		number: 5434,
+	// 		photo: "https://photutorial.com/wp-content/uploads/2022/03/Selfies-statistics-thumbnail.png",
+	// 	},
+	// 	{
+	// 		name: "Esther",
+	// 		number: 2374,
+	// 		photo: "https://photutorial.com/wp-content/uploads/2022/03/Selfies-statistics-thumbnail.png",
+	// 	},
+	// ]);
 
 	const [filterdContacts, setFilteredContacts] = useState(contacts);
 
-	// const takePhoto = async () => {
-	// 	const photo = await imageService.takePhoto();
-	// 	if (photo.length > 0) {
-	// 		await fileService.addImage(photo);
-	// 	}
-	// };
+	useEffect(() => {
+		// Fetch and set contacts from storage
+		const initializeContacts = async () => {
+			const storedContacts = await fileService.readContacts();
+			setContacts(storedContacts);
+		};
+		setFilteredContacts(contacts);
+		initializeContacts();
+
+		// Sort and set filtered contacts when the component mounts or when contacts change
+		setFilteredContacts((prevFilteredContacts) =>
+			[...prevFilteredContacts].sort((a, b) =>
+				a.name.localeCompare(b.name)
+			)
+		);
+	}, [contacts]); // The dependency array includes "contacts" to trigger the effect when contacts change
+
+	const takePhoto = async () => {
+		const photo = await imageService.takePhoto();
+		if (photo.length > 0) {
+			await fileService.addImage(photo);
+		}
+	};
 
 	useEffect(() => {
 		const initializeContacts = async () => {
@@ -36,23 +80,15 @@ const Contacts = ({}) => {
 		initializeContacts();
 	}, []);
 
-	const addNewContact = (name, phoneNumber, image) => {
-		const newContact = {
-			name: name,
-			phoneNumber: phoneNumber,
-			image: image,
-		};
-		setNewContact([...newContacts, newContact]);
-	};
-	console.log("contacts");
-	console.log(contacts);
-
 	const search = async (query) => {
 		setSearchQuery(query);
 		const filteredData = contacts.filter((item) =>
 			item.name.toLowerCase().includes(query.toLowerCase())
 		);
-		setFilteredContacts(filteredData);
+
+		setFilteredContacts(
+			filteredData.sort((a, b) => a.name.localeCompare(b.name))
+		);
 	};
 	console.log("New contacts");
 	console.log(newContacts);
