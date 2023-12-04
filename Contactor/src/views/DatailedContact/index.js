@@ -1,17 +1,21 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Image, Alert } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import styles from "./styles";
-import Contact from "../../components/ContactOverview";
+import ContactDetail from "../../components/ContactDetail";
 
-const DetailedContacts = ({ navigation: { navigate } }) => {
+const DetailedContacts = ({}) => {
 	const navigation = useNavigation();
 	const route = useRoute();
 	// const uuid = route.params?.uuid;
 
+	const editContact = () => {
+		// A function to edit a contact
+		console.log("Edit a contact");
+	};
+
 	return (
 		<View>
-			<Text>detailed contacts</Text>
+			<ContactDetail editContact={editContact} />
 		</View>
 	);
 };
