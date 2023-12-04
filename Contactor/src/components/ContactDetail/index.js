@@ -1,15 +1,26 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Image } from "react-native";
+import styles from "./styles";
 
 const ContactDetail = ({ editContact }) => {
 	return (
-		<View>
-			<Text>The detailed view for a single contact</Text>
-			<Text>Name</Text>
-			<Text>Number</Text>
-			<Text>Image</Text>
-			<TouchableOpacity onPress={() => editContact()}>
-				<Text>Button to edit a contact</Text>
+		<View style={styles.container}>
+			<View style={styles.imageContainer}>
+				<Image
+					source={{
+						uri: "https://photutorial.com/wp-content/uploads/2022/03/Selfies-statistics-thumbnail.png",
+					}}
+					style={styles.image}
+				/>
+			</View>
+			<Text style={styles.name}>Jane Doe</Text>
+			<Text style={styles.number}>+123 456 7890</Text>
+
+			<TouchableOpacity
+				style={styles.button}
+				onPress={() => editContact()}
+			>
+				<Text style={styles.buttonText}>Edit Contact</Text>
 			</TouchableOpacity>
 		</View>
 	);
