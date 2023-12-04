@@ -1,34 +1,27 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
-import styles from "./styles";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
-const Contact = ({ id, name, number, photo }) => {
+const Contact = ({ name, number }) => {
 	const { navigate } = useNavigation();
 
 	return (
-		<View style={styles.container}>
-			<TouchableOpacity
-				style={styles.contactButton}
-				onPress={() =>
-					navigate("DetailedContacts", {
-						uuid: id,
-						name: name,
-						number: number,
-						photo: photo,
-					})
-				}
-			>
-				{/* need to send uuid to DetailedContacts to display details about a specific contact */}
-				<Image
-					alt="A contact image"
-					source={{ uri: photo }}
-					style={styles.image}
-				/>
-				<Text style={styles.name}>{name}</Text>
-			</TouchableOpacity>
+		<View style={styles.contact}>
+			<Text>{name}</Text>
+			<Text>{number}</Text>
+			<Text>Photo</Text>
+			{/* <TouchableOpacity onPress={() => navigate("DetailedContacts")}>
+				<Text>Move to detailed contacts</Text>
+			</TouchableOpacity> */}
 		</View>
 	);
 };
+
+const styles = StyleSheet.create({
+	contact: {
+		backgroundColor: "pink",
+		margin: 10,
+	},
+});
 
 export default Contact;

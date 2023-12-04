@@ -7,8 +7,8 @@ const ContactList = ({ data }) => {
 		<View>
 			<FlatList
 				data={data}
-				renderItem={({ item: { name, photo } }) => {
-					return <Contact name={name} photo={photo} />;
+				renderItem={({ item: { name, number } }) => {
+					return <Contact name={name} number={number} />;
 				}}
 			/>
 		</View>
