@@ -14,7 +14,7 @@ const DetailedContacts = ({}) => {
 	};
 
 	return (
-		<View>
+		<View style={{ flex: 1 }}>
 			<ContactDetail editContact={editContact} />
 		</View>
 	);
