@@ -1,7 +1,7 @@
 import React from "react";
 // import PropTypes from "prop-types";
 import { View, TextInput, Text, TouchableHighlight } from "react-native";
-import styles from "./styles";
+import styles from "../../styles/toolbar";
 
 const Toolbar = ({ searchQuery, handelSearch, createContact }) => {
 	// Checking if exactly one list is selected for enabling the Edit functionality
