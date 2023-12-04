@@ -1,13 +1,21 @@
+import "react-native-get-random-values";
 import * as FileSystem from "expo-file-system";
-const contactDirectory = "${FileSystem.documentDirectory}contacts";
+const contactDirectory = `${FileSystem.documentDirectory}`;
 import { v4 as uuidv4 } from "uuid";
 
 export const storeContact = async (user) => {
 	try {
+		const phoneNumberPattern = /^\d+$/;
+		if (!phoneNumberPattern.test(user.phoneNumber)) {
+			throw new Error(
+				"Phone number is invalid. It should contain only digits."
+			);
+		}
 		const uuid = uuidv4();
 		const filename = `${user.name}-${uuid}.json`;
 		const filePath = `${FileSystem.documentDirectory}${filename}`;
-
+		console.log("User.name");
+		console.log(user.name);
 		const contact = JSON.stringify({
 			name: user.name,
 			phoneNumber: user.phoneNumber,
@@ -22,14 +30,21 @@ export const storeContact = async (user) => {
 	}
 };
 
-const readContacts = async () => {
+export const readContacts = async () => {
 	try {
-		const contacts = await FileSystem.readDirectoryAsync(contactDirectory);
+		const fileNames = await FileSystem.readDirectoryAsync(contactDirectory);
+		const contactsPromises = fileNames.map(async (fileName) => {
+			const filePath = `${contactDirectory}/${fileName}`;
+			const fileContents = await FileSystem.readAsStringAsync(filePath);
+			return JSON.parse(fileContents);
+		});
+		const contacts = await Promise.all(contactsPromises);
 		console.log("Contacts read from file system:", contacts);
 		return contacts;
 	} catch (error) {
 		console.error("Error reading contacts:", error);
+		return []; // Return an empty array in case of error
 	}
 };
-export default readContacts;
+
 export const addImage = async (imageLocation) => {};
