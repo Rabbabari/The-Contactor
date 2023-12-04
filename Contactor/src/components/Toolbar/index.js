@@ -1,9 +1,9 @@
 import React from "react";
 // import PropTypes from "prop-types";
-import { View, TextInput, Text } from "react-native";
-import styles from "../../styles/toolbar";
+import { View, TextInput, Text, TouchableHighlight } from "react-native";
+import styles from "./styles";
 
-const Toolbar = ({ searchQuery, handelSearch }) => {
+const Toolbar = ({ searchQuery, handelSearch, createContact }) => {
 	// Checking if exactly one list is selected for enabling the Edit functionality
 
 	return (
@@ -20,6 +20,9 @@ const Toolbar = ({ searchQuery, handelSearch }) => {
 				/>
 				{/* add an icon? */}
 			</View>
+			<TouchableHighlight style={styles.button} onPress={createContact}>
+				<Text>Create contact</Text>
+			</TouchableHighlight>
 		</View>
 	);
 };

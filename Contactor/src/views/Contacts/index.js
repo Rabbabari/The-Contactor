@@ -10,20 +10,22 @@ import EditContactModal from "../../components/ContactEditModal";
 
 const Contacts = ({}) => {
 	const [contacts, setContacts] = useState([]);
+	const [newContacts, setNewContact] = useState([]);
 	const navigation = useNavigation();
 	const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 	// A boolean flag to indicate if the modal to edit a board is open or not
-	const [isBoardEditModalOpen, setIsBoardEditModalOpen] = useState(false);
+	const [isEditMContactModalOpen, setIsEditContactModalOpen] =
+		useState(false);
 	const [searchQuery, setSearchQuery] = useState("");
 
 	const [filterdContacts, setFilteredContacts] = useState(contacts);
 
-	const takePhoto = async () => {
-		const photo = await imageService.takePhoto();
-		if (photo.length > 0) {
-			await fileService.addImage(photo);
-		}
-	};
+	// const takePhoto = async () => {
+	// 	const photo = await imageService.takePhoto();
+	// 	if (photo.length > 0) {
+	// 		await fileService.addImage(photo);
+	// 	}
+	// };
 
 	useEffect(() => {
 		const initializeContacts = async () => {
@@ -34,6 +36,17 @@ const Contacts = ({}) => {
 		initializeContacts();
 	}, []);
 
+	const addNewContact = (name, phoneNumber, image) => {
+		const newContact = {
+			name: name,
+			phoneNumber: phoneNumber,
+			image: image,
+		};
+		setNewContact([...newContacts, newContact]);
+	};
+	console.log("contacts");
+	console.log(contacts);
+
 	const search = async (query) => {
 		setSearchQuery(query);
 		const filteredData = contacts.filter((item) =>
@@ -41,11 +54,22 @@ const Contacts = ({}) => {
 		);
 		setFilteredContacts(filteredData);
 	};
+	console.log("New contacts");
+	console.log(newContacts);
 
 	return (
 		<View style={styles.container}>
-			<Toolbar searchQuery={searchQuery} handelSearch={search} />
-			<ContactList data={filterdContacts}></ContactList>
+			<Toolbar
+				searchQuery={searchQuery}
+				handelSearch={search}
+				createContact={() => setIsCreateModalOpen(true)}
+			/>
+			<ContactList data={contacts}></ContactList>
+			<CreateContactModal
+				isOpen={isCreateModalOpen}
+				closeModal={() => setIsCreateModalOpen(false)}
+				onAddNewContact={newContacts}
+			/>
 		</View>
 	);
 };

@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { Entypo } from "@expo/vector-icons";
 import Modal from "../Modal"; // Importing custom modal component
 import styles from "../../styles/modal"; // Importing custom styles
+import { storeContact } from "../../services/fileService";
 
 const CreateContactModal = ({ isOpen, closeModal, onAddNewContact }) => {
 	// State variables for the user name, phone number, and contact photo
@@ -29,12 +30,16 @@ const CreateContactModal = ({ isOpen, closeModal, onAddNewContact }) => {
 	};
 
 	// Function to handle the submission of a new user
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		if (!name.trim() || !phoneNumber.trim()) {
 			setError(true);
 			Alert.alert("Error", "Please enter a name and phone number.");
 		} else {
-			onAddNewUser(name, phoneNumber, photo);
+			console.log("onAddNewContact");
+			console.log(onAddNewContact[0]);
+			console.log(onAddNewContact[0].name);
+			await storeContact(onAddNewContact[0]);
+			onAddNewContact(name, phoneNumber, photo);
 			setContactName("");
 			setPhoneNumber("");
 			setContactPhoto();
@@ -48,14 +53,14 @@ const CreateContactModal = ({ isOpen, closeModal, onAddNewContact }) => {
 			<View>
 				<TextInput
 					style={styles.textInput}
-					placeholder="Name"
+					placeholder='Name'
 					value={name}
 					onChangeText={setContactName}
 				/>
 				<Text style={styles.text}>Phone number</Text>
 				<TextInput
 					style={styles.textInput}
-					placeholder="Phone number"
+					placeholder='Phone number'
 					value={phoneNumber}
 					onChangeText={setPhoneNumber}
 				/>
@@ -63,9 +68,9 @@ const CreateContactModal = ({ isOpen, closeModal, onAddNewContact }) => {
 				<TouchableOpacity onPress={() => selectFromCameraRoll()}>
 					<Entypo
 						style={styles.icon}
-						name="image"
+						name='image'
 						size={26}
-						color="black"
+						color='black'
 						value={photo}
 					/>
 				</TouchableOpacity>
@@ -83,7 +88,7 @@ CreateContactModal.propTypes = {
 	// Function to close the Modal
 	closeModal: PropTypes.func.isRequired,
 	// Function to create a new user
-	onAddNewUser: PropTypes.func.isRequired,
+	onAddNewContact: PropTypes.object.isRequired,
 };
 
 export default CreateContactModal;
