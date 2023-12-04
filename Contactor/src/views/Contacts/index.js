@@ -37,15 +37,21 @@ const Contacts = ({}) => {
 	}, []);
 
 	const addNewContact = (name, phoneNumber, image) => {
+		console.log("Inside addNewContact");
+		console.log();
+		name, phoneNumber, image;
 		const newContact = {
 			name: name,
 			phoneNumber: phoneNumber,
 			image: image,
 		};
 		setNewContact([...newContacts, newContact]);
+		fileService.storeContact(newContact);
 	};
 	console.log("contacts");
 	console.log(contacts);
+	console.log("New contacts");
+	console.log(newContacts);
 
 	const search = async (query) => {
 		setSearchQuery(query);
@@ -54,8 +60,6 @@ const Contacts = ({}) => {
 		);
 		setFilteredContacts(filteredData);
 	};
-	console.log("New contacts");
-	console.log(newContacts);
 
 	return (
 		<View style={styles.container}>
@@ -68,7 +72,7 @@ const Contacts = ({}) => {
 			<CreateContactModal
 				isOpen={isCreateModalOpen}
 				closeModal={() => setIsCreateModalOpen(false)}
-				onAddNewContact={newContacts}
+				onAddNewContact={addNewContact}
 			/>
 		</View>
 	);
