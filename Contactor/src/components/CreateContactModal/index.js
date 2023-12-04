@@ -25,7 +25,7 @@ const CreateContactModal = ({ isOpen, closeModal, onAddNewContact }) => {
 		if (pickerResult.canceled === true) {
 			return;
 		}
-		setThumbnailPhoto(pickerResult.assets[0].uri);
+		setContactPhoto(pickerResult.assets[0].uri);
 	};
 
 	// Function to handle the submission of a new board
