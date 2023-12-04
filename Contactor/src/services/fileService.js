@@ -4,6 +4,8 @@ const contactDirectory = `${FileSystem.documentDirectory}`;
 import { v4 as uuidv4 } from "uuid";
 
 export const storeContact = async (user) => {
+	console.log("Inside store");
+	console.log(user);
 	try {
 		const phoneNumberPattern = /^\d+$/;
 		if (!phoneNumberPattern.test(user.phoneNumber)) {
@@ -33,7 +35,10 @@ export const storeContact = async (user) => {
 export const readContacts = async () => {
 	try {
 		const fileNames = await FileSystem.readDirectoryAsync(contactDirectory);
-		const contactsPromises = fileNames.map(async (fileName) => {
+		const validFiles = fileNames.filter(
+			(path) => !path.includes(".DS_Store")
+		);
+		const contactsPromises = validFiles.map(async (fileName) => {
 			const filePath = `${contactDirectory}/${fileName}`;
 			const fileContents = await FileSystem.readAsStringAsync(filePath);
 			return JSON.parse(fileContents);

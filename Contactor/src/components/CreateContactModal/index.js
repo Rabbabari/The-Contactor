@@ -36,13 +36,12 @@ const CreateContactModal = ({ isOpen, closeModal, onAddNewContact }) => {
 			Alert.alert("Error", "Please enter a name and phone number.");
 		} else {
 			console.log("onAddNewContact");
-			console.log(onAddNewContact[0]);
-			console.log(onAddNewContact[0].name);
-			await storeContact(onAddNewContact[0]);
-			onAddNewContact(name, phoneNumber, photo);
+			//console.log(onAddNewContact[0]);
+			//console.log(onAddNewContact[0]);
+			await onAddNewContact(name, phoneNumber, photo);
 			setContactName("");
 			setPhoneNumber("");
-			setContactPhoto();
+			setContactPhoto("");
 			setError(false);
 			closeModal();
 		}
@@ -88,7 +87,7 @@ CreateContactModal.propTypes = {
 	// Function to close the Modal
 	closeModal: PropTypes.func.isRequired,
 	// Function to create a new user
-	onAddNewContact: PropTypes.object.isRequired,
+	onAddNewContact: PropTypes.func.isRequired,
 };
 
 export default CreateContactModal;
