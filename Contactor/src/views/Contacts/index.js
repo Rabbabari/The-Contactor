@@ -6,6 +6,7 @@ import ContactList from "../../components/ContactList";
 import * as fileService from "../../services/fileService";
 
 const Contacts = ({ navigation: { navigate } }) => {
+	const [contacts, setContacts] = useState([]);
 	const navigation = useNavigation();
 
 	const takePhoto = async () => {
@@ -14,6 +15,15 @@ const Contacts = ({ navigation: { navigate } }) => {
 			await fileService.addImage(photo);
 		}
 	};
+
+	useEffect(() => {
+		const initializeContacts = async () => {
+			const storedContacts = await fileService.readContacts();
+			setContacts(storedContacts);
+		};
+
+		initializeContacts();
+	}, []);
 
 	return (
 		<View style={styles.container}>

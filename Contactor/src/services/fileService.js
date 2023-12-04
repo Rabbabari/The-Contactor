@@ -22,4 +22,14 @@ export const storeContact = async (name, phoneNumber, image) => {
 	}
 };
 
+const readContacts = async () => {
+	try {
+		const contacts = await FileSystem.readDirectoryAsync(contactDirectory);
+		console.log("Contacts read from file system:", contacts);
+		return contacts;
+	} catch (error) {
+		console.error("Error reading contacts:", error);
+	}
+};
+export default readContacts;
 export const addImage = async (imageLocation) => {};
