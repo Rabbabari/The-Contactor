@@ -2,16 +2,16 @@ import * as FileSystem from "expo-file-system";
 const contactDirectory = "${FileSystem.documentDirectory}contacts";
 import { v4 as uuidv4 } from "uuid";
 
-export const storeContact = async (name, phoneNumber, image) => {
+export const storeContact = async (user) => {
 	try {
 		const uuid = uuidv4();
 		const filename = `${user.name}-${uuid}.json`;
 		const filePath = `${FileSystem.documentDirectory}${filename}`;
 
 		const contact = JSON.stringify({
-			name: name,
-			phoneNumber: phoneNumber,
-			photo: image,
+			name: user.name,
+			phoneNumber: user.phoneNumber,
+			photo: user.image,
 		});
 
 		await FileSystem.writeAsStringAsync(filePath, contact);
