@@ -1,17 +1,15 @@
-import React, { useState } from "react";
-import * as ImagePicker from "expo-image-picker";
-import { Text, TextInput, Alert, View, TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import * as ImagePicker from "expo-image-picker";
 import { Entypo } from "@expo/vector-icons";
-import Modal from "../Modal"; // Importing custom modal component
-import styles from "../../styles/modal"; // Importing custom styles
+import { TouchableOpacity, View, Text, TextInput, Alert } from "react-native";
+import Modal from "../Modal";
+import styles from "../../styles/modal";
 
-const CreateContactModal = ({ isOpen, closeModal, onAddNewContact }) => {
-	// State variables for the user name, phone number, and contact photo
+const ContactEditModal = ({ isOpen, closeModal, user, updateContact }) => {
 	const [name, setContactName] = useState("");
 	const [phoneNumber, setPhoneNumber] = useState("");
 	const [photo, setContactPhoto] = useState("");
-	const [error, setError] = useState(false);
 
 	const selectFromCameraRoll = async () => {
 		const permissionResult =
@@ -28,23 +26,26 @@ const CreateContactModal = ({ isOpen, closeModal, onAddNewContact }) => {
 		setContactPhoto(pickerResult.assets[0].uri);
 	};
 
-	// Function to handle the submission of a new user
+	useEffect(() => {
+		if (user) {
+			setContactName(user.name);
+			setPhoneNumber(user.phoneNumber);
+			setContactPhoto(user.image);
+		}
+	}, [user]);
+
 	const handleSubmit = () => {
-		if (!name.trim() || !phoneNumber.trim()) {
-			setError(true);
-			Alert.alert("Error", "Please enter a name and phone number.");
+		if (!name.trim()) {
+			Alert.alert("Error", "Please enter a name");
 		} else {
-			onAddNewUser(name, phoneNumber, photo);
-			setContactName("");
-			setPhoneNumber("");
-			setContactPhoto();
-			setError(false);
+			updateUser(user, name, phoneNumber, photo);
 			closeModal();
 		}
 	};
+
 	return (
 		<Modal isOpen={isOpen} closeModal={closeModal}>
-			<Text style={styles.text}>Name</Text>
+			<Text style={styles.text}>Choose name</Text>
 			<View>
 				<TextInput
 					style={styles.textInput}
@@ -52,19 +53,18 @@ const CreateContactModal = ({ isOpen, closeModal, onAddNewContact }) => {
 					value={name}
 					onChangeText={setContactName}
 				/>
-				<Text style={styles.text}>Phone number</Text>
+				<Text style={styles.text}>Write description</Text>
 				<TextInput
 					style={styles.textInput}
 					placeholder="Phone number"
 					value={phoneNumber}
 					onChangeText={setPhoneNumber}
 				/>
-
 				<TouchableOpacity onPress={() => selectFromCameraRoll()}>
 					<Entypo
 						style={styles.icon}
 						name="image"
-						size={26}
+						size={24}
 						color="black"
 						value={photo}
 					/>
@@ -77,13 +77,15 @@ const CreateContactModal = ({ isOpen, closeModal, onAddNewContact }) => {
 	);
 };
 
-CreateContactModal.propTypes = {
+ContactEditModal.propTypes = {
 	// Indicator that the Modal is open
 	isOpen: PropTypes.bool.isRequired,
 	// Function to close the Modal
 	closeModal: PropTypes.func.isRequired,
-	// Function to create a new user
-	onAddNewUser: PropTypes.func.isRequired,
+	// A user to be updated
+	user: PropTypes.object,
+	// Function to update a user
+	updateUser: PropTypes.func.isRequired,
 };
 
-export default CreateContactModal;
+export default ContactEditModal;
