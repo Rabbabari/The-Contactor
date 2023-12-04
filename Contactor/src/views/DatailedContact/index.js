@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Image, Alert } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import styles from "./styles";
+import Contact from "../../components/ContactOverview";
 
-const Main = ({ navigation: { navigate } }) => {
+const DetailedContacts = ({ navigation: { navigate } }) => {
 	const navigation = useNavigation();
+	const route = useRoute();
+	// const uuid = route.params?.uuid;
 
 	return (
-		<View style={styles.container}>
+		<View>
 			<Text>detailed contacts</Text>
 		</View>
 	);
 };
 
-export default Main;
+export default DetailedContacts;
