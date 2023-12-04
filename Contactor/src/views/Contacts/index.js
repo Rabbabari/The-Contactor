@@ -4,10 +4,15 @@ import { useNavigation } from "@react-navigation/native";
 import styles from "./styles";
 import ContactList from "../../components/ContactList";
 import * as fileService from "../../services/fileService";
+import CreateContactModal from "../../components/CreateContactModal";
+import EditContactModal from "../../components/ContactEditModal";
 
 const Contacts = ({ navigation: { navigate } }) => {
 	const [contacts, setContacts] = useState([]);
 	const navigation = useNavigation();
+	const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+	// A boolean flag to indicate if the modal to edit a board is open or not
+	const [isBoardEditModalOpen, setIsBoardEditModalOpen] = useState(false);
 
 	const takePhoto = async () => {
 		const photo = await imageService.takePhoto();

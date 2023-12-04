@@ -6,7 +6,7 @@ import { TouchableOpacity, View, Text, TextInput, Alert } from "react-native";
 import Modal from "../Modal";
 import styles from "../../styles/modal";
 
-const ContactEditModal = ({ isOpen, closeModal, user, updateContact }) => {
+const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
 	const [name, setContactName] = useState("");
 	const [phoneNumber, setPhoneNumber] = useState("");
 	const [photo, setContactPhoto] = useState("");
@@ -88,4 +88,4 @@ ContactEditModal.propTypes = {
 	updateUser: PropTypes.func.isRequired,
 };
 
-export default ContactEditModal;
+export default EditContactModal;
