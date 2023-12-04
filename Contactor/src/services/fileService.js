@@ -21,3 +21,5 @@ export const storeContact = async (name, phoneNumber, image) => {
 		console.error("Error storing user data:", error);
 	}
 };
+
+export const addImage = async (imageLocation) => {};
