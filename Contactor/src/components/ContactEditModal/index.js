@@ -45,7 +45,7 @@ const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
 
 	return (
 		<Modal isOpen={isOpen} closeModal={closeModal}>
-			<Text style={styles.text}>Choose name</Text>
+			<Text style={styles.text}>Contact Name</Text>
 			<View>
 				<TextInput
 					style={styles.textInput}
@@ -53,13 +53,14 @@ const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
 					value={name}
 					onChangeText={setContactName}
 				/>
-				<Text style={styles.text}>Write description</Text>
+				<Text style={styles.text}>Phone number</Text>
 				<TextInput
 					style={styles.textInput}
 					placeholder="Phone number"
 					value={phoneNumber}
 					onChangeText={setPhoneNumber}
 				/>
+				<Text style={styles.text}>Choose Photo</Text>
 				<TouchableOpacity onPress={() => selectFromCameraRoll()}>
 					<Entypo
 						style={styles.icon}
@@ -85,7 +86,7 @@ EditContactModal.propTypes = {
 	// A user to be updated
 	user: PropTypes.object,
 	// Function to update a user
-	updateUser: PropTypes.func.isRequired,
+	updateUser: PropTypes.func,
 };
 
 export default EditContactModal;

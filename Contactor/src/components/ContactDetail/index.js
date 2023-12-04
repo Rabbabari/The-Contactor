@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import styles from "./styles";
 
-const ContactDetail = ({ editContact }) => {
+const ContactDetail = ({ editCurrentContact }) => {
 	return (
 		<View style={styles.container}>
 			<View style={styles.imageContainer}>
@@ -18,7 +18,7 @@ const ContactDetail = ({ editContact }) => {
 
 			<TouchableOpacity
 				style={styles.button}
-				onPress={() => editContact()}
+				onPress={editCurrentContact}
 			>
 				<Text style={styles.buttonText}>Edit Contact</Text>
 			</TouchableOpacity>
