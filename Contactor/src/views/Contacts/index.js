@@ -2,18 +2,16 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Image, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import styles from "./styles";
+import ContactList from "../../components/ContactList";
 
-const Main = ({ navigation: { navigate } }) => {
+const Contacts = ({ navigation: { navigate } }) => {
 	const navigation = useNavigation();
 
 	return (
 		<View style={styles.container}>
-			<Text>Contact page</Text>
-			<TouchableOpacity onPress={() => navigate("DetailedContacts")}>
-				<Text>Nagivate to details</Text>
-			</TouchableOpacity>
+			<ContactList></ContactList>
 		</View>
 	);
 };
 
-export default Main;
+export default Contacts;
