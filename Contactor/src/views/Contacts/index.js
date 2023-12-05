@@ -55,8 +55,6 @@ const Contacts = ({}) => {
 	}, [contacts]);
 
 	const addNewContact = (name, phoneNumber, image) => {
-		console.log("Inside addNewContact");
-		console.log();
 		name, phoneNumber, image;
 		const newContact = {
 			name: name,
@@ -67,10 +65,10 @@ const Contacts = ({}) => {
 		setContacts([...contacts, newContact]);
 		fileService.storeContact(newContact);
 	};
-	console.log("contacts");
-	console.log(contacts);
-	console.log("New contacts");
-	console.log(newContacts);
+	// console.log("contacts");
+	// console.log(contacts);
+	// console.log("New contacts");
+	// console.log(newContacts);
 
 	const search = async (query) => {
 		setSearchQuery(query);

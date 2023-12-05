@@ -39,9 +39,6 @@ const CreateContactModal = ({ isOpen, closeModal, onAddNewContact }) => {
 			setError(true);
 			Alert.alert("Error", "Please enter a name and phone number.");
 		} else {
-			console.log("onAddNewContact");
-			//console.log(onAddNewContact[0]);
-			//console.log(onAddNewContact[0]);
 			await onAddNewContact(name, phoneNumber, photo);
 			setContactName("");
 			setPhoneNumber("");

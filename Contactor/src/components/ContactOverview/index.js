@@ -4,12 +4,11 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import noProfileImage from "../../resources/noProfileImage.png";
 import styles from "./styles";
 
-const Contact = ({ name, phoneNumber, photo }) => {
+const Contact = ({ name, phoneNumber, photo, fileName }) => {
 	// Checking if the photo is empty or not, if empty then use the noProfileImage
 	let image = "";
 	if (photo === "") {
 		image = noProfileImage;
-		console.log("Profile image ", noProfileImage);
 	} else {
 		image = { uri: photo };
 	}
@@ -19,9 +18,12 @@ const Contact = ({ name, phoneNumber, photo }) => {
 			<TouchableOpacity
 				onPress={() =>
 					navigate("DetailedContacts", {
-						name: name,
-						phoneNumber: phoneNumber,
-						photo: image,
+						user: {
+							fileName: fileName,
+							name: name,
+							phoneNumber: phoneNumber,
+							photo: image,
+						},
 					})
 				}
 				style={styles.imageContainer}
