@@ -32,9 +32,22 @@ const Contacts = ({}) => {
 			const storedContacts = await fileService.readContacts();
 			setContacts(storedContacts);
 		};
-
+		setFilteredContacts(contacts);
 		initializeContacts();
 	}, []);
+
+	useEffect(() => {
+		// Sort and set filtered contacts when contacts or searchQuery change
+		setFilteredContacts((prevFilteredContacts) =>
+			[...prevFilteredContacts]
+				.filter((contact) =>
+					contact.name
+						.toLowerCase()
+						.includes(searchQuery.toLowerCase())
+				)
+				.sort((a, b) => a.name.localeCompare(b.name))
+		);
+	}, [contacts]);
 
 	const addNewContact = (name, phoneNumber, image) => {
 		console.log("Inside addNewContact");
@@ -59,7 +72,10 @@ const Contacts = ({}) => {
 		const filteredData = contacts.filter((item) =>
 			item.name.toLowerCase().includes(query.toLowerCase())
 		);
-		setFilteredContacts(filteredData);
+
+		setFilteredContacts(
+			filteredData.sort((a, b) => a.name.localeCompare(b.name))
+		);
 	};
 
 	return (
@@ -69,7 +85,7 @@ const Contacts = ({}) => {
 				handelSearch={search}
 				createContact={() => setIsCreateModalOpen(true)}
 			/>
-			<ContactList data={contacts}></ContactList>
+			<ContactList data={filterdContacts}></ContactList>
 			<CreateContactModal
 				isOpen={isCreateModalOpen}
 				closeModal={() => setIsCreateModalOpen(false)}
