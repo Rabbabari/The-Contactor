@@ -11,7 +11,7 @@ const ContactList = ({ data }) => {
 					return (
 						<Contact
 							name={name}
-							number={phoneNumber}
+							phoneNumber={phoneNumber}
 							photo={photo}
 						/>
 					);
