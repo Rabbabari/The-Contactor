@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import ContactDetail from "../../components/ContactDetail";
 import ContactEditModal from "../../components/ContactEditModal";
-import * as fileService from "../../services/fileService";
+import { editContact } from "../../services/fileService";
 
 const DetailedContacts = () => {
 	const [isContactEditModalOpen, setIsContactEditModalOpen] = useState(false);
@@ -13,7 +13,8 @@ const DetailedContacts = () => {
 	// Example current contact data
 	const route = useRoute();
 	const { user } = route.params;
-	const editContact = () => {
+
+	const toggleEditContact = () => {
 		setIsContactEditModalOpen(true);
 	};
 
@@ -32,6 +33,18 @@ const DetailedContacts = () => {
 		});
 	};
 
+	const updateContact = (newName, newNumber, newPhoto) => {
+		// TODO vesen my photo. er undefined
+		console.log("update contact");
+		user.name = newName;
+		user.phoneNumber = newNumber;
+		user.photo = newPhoto;
+		// console.log(newName);
+		// console.log(newNumber);
+		console.log("photo: ", newPhoto);
+		editContact(user.fileName, newName, newNumber, newPhoto);
+	};
+
 	return (
 		<View style={{ flex: 1 }}>
 			<ContactDetail
@@ -39,7 +52,7 @@ const DetailedContacts = () => {
 				phoneNumber={user.phoneNumber}
 				photo={user.photo}
 				fileName={user.fileName}
-				editCurrentContact={() => editContact()}
+				editCurrentContact={() => toggleEditContact()}
 				deleteCurrentContact={() => deleteCurrentContact()}
 			/>
 			<ContactEditModal
@@ -48,6 +61,7 @@ const DetailedContacts = () => {
 				closeModal={() => setIsContactEditModalOpen(false)}
 				contact={editingContact}
 				user={user}
+				updateContact={updateContact}
 			/>
 		</View>
 	);
