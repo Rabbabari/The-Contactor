@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, Image, Alert } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import styles from "./styles";
 import ContactList from "../../components/ContactList";
 import Toolbar from "../../components/Toolbar";
@@ -27,7 +27,7 @@ const Contacts = ({}) => {
 	// 	}
 	// };
 
-	useEffect(() => {
+	useFocusEffect(() => {
 		const initializeContacts = async () => {
 			try {
 				const storedContacts = await fileService.readContacts();

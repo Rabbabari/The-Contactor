@@ -13,15 +13,16 @@ const DetailedContacts = () => {
 	// Example current contact data
 	const route = useRoute();
 	const { user } = route.params;
+	const navigation = useNavigation();
 	const editContact = () => {
 		setIsContactEditModalOpen(true);
 	};
 
 	const deleteCurrentContact = () => {
 		const initializeContacts = async () => {
-			console.log("user filename ", user);
 			try {
 				await fileService.deleteContact(user.fileName);
+				navigation.goBack();
 			} catch (error) {
 				console.error("Error initializing contacts:", error);
 			}
