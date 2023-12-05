@@ -53,8 +53,6 @@ export const readContacts = async () => {
 			return JSON.parse(fileContents);
 		});
 		const contacts = await Promise.all(contactsPromises);
-		console.log(contacts);
-		console.log("Contacts read from file system:", contacts);
 		return contacts;
 	} catch (error) {
 		console.error("Error reading contacts:", error);

@@ -46,6 +46,7 @@ const Contacts = ({}) => {
 			image: image,
 		};
 		setNewContact([...newContacts, newContact]);
+		setContacts([...contacts, newContact]);
 		fileService.storeContact(newContact);
 	};
 	console.log("contacts");
