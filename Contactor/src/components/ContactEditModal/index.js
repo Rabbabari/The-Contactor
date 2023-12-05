@@ -8,7 +8,7 @@ import styles from "../../styles/modal";
 
 const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
 	const [name, setContactName] = useState("");
-	const [phoneNumber, setPhoneNumber] = useState("");
+	const [phoneNumber, setPhoneNumber] = useState(null);
 	const [photo, setContactPhoto] = useState("");
 
 	const selectFromCameraRoll = async () => {
@@ -35,8 +35,8 @@ const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
 	}, [user]);
 
 	const handleSubmit = () => {
-		if (!name.trim()) {
-			Alert.alert("Error", "Please enter a name");
+		if (!name.trim() || !phoneNumber.trim()) {
+			Alert.alert("Error", "Please enter a name and phone number");
 		} else {
 			updateUser(user, name, phoneNumber, photo);
 			closeModal();
@@ -49,14 +49,14 @@ const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
 			<View>
 				<TextInput
 					style={styles.textInput}
-					placeholder="Name"
+					placeholder={name}
 					value={name}
 					onChangeText={setContactName}
 				/>
 				<Text style={styles.text}>Phone number</Text>
 				<TextInput
 					style={styles.textInput}
-					placeholder="Phone number"
+					placeholder={phoneNumber}
 					value={phoneNumber}
 					onChangeText={setPhoneNumber}
 				/>
