@@ -1,11 +1,18 @@
 import "react-native-get-random-values";
 import * as FileSystem from "expo-file-system";
-const contactDirectory = `${FileSystem.documentDirectory}`;
+const contactDirectory = `${FileSystem.documentDirectory}contacts`;
 import { v4 as uuidv4 } from "uuid";
 
+const setUpDirectory = async () => {
+	const dir = await FileSystem.getInfoAsync(contactDirectory);
+	if (!dir.exists) {
+		await FileSystem.makeDirectoryAsync(contactDirectory);
+	}
+};
+
 export const storeContact = async (user) => {
-	console.log("Inside store");
-	console.log(user);
+	await setUpDirectory();
+
 	try {
 		const phoneNumberPattern = /^\d+$/;
 		if (!phoneNumberPattern.test(user.phoneNumber)) {
@@ -15,7 +22,7 @@ export const storeContact = async (user) => {
 		}
 		const uuid = uuidv4();
 		const filename = `${user.name}-${uuid}.json`;
-		const filePath = `${FileSystem.documentDirectory}${filename}`;
+		const filePath = `${contactDirectory}/${filename}`;
 		console.log("User.name");
 		console.log(user.name);
 		const contact = JSON.stringify({
@@ -33,8 +40,10 @@ export const storeContact = async (user) => {
 };
 
 export const readContacts = async () => {
+	await setUpDirectory();
 	try {
 		const fileNames = await FileSystem.readDirectoryAsync(contactDirectory);
+		console.log(fileNames);
 		const validFiles = fileNames.filter(
 			(path) => !path.includes(".DS_Store")
 		);
@@ -44,6 +53,7 @@ export const readContacts = async () => {
 			return JSON.parse(fileContents);
 		});
 		const contacts = await Promise.all(contactsPromises);
+		console.log(contacts);
 		console.log("Contacts read from file system:", contacts);
 		return contacts;
 	} catch (error) {

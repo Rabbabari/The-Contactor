@@ -29,6 +29,10 @@ const CreateContactModal = ({ isOpen, closeModal, onAddNewContact }) => {
 		setContactPhoto(pickerResult.assets[0].uri);
 	};
 
+	const isNumeric = (value) => {
+		return /^\d+$/.test(value); // Regular expression for numeric values
+	};
+
 	// Function to handle the submission of a new user
 	const handleSubmit = async () => {
 		if (!name.trim() || !phoneNumber.trim()) {
@@ -62,6 +66,7 @@ const CreateContactModal = ({ isOpen, closeModal, onAddNewContact }) => {
 					placeholder='Phone number'
 					value={phoneNumber}
 					onChangeText={setPhoneNumber}
+					keyboardType='numeric'
 				/>
 
 				<TouchableOpacity onPress={() => selectFromCameraRoll()}>
