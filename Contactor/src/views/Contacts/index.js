@@ -28,7 +28,7 @@ const ContactsComponent = ({}) => {
 	// 	}
 	// };
 
-	useEffect(() => {
+	useFocusEffect(() => {
 		const initializeContacts = async () => {
 			try {
 				const storedContacts = await fileService.readContacts();
@@ -118,7 +118,7 @@ const ContactsComponent = ({}) => {
 				handelSearch={search}
 				createContact={() => setIsCreateModalOpen(true)}
 			/>
-			<Button title="Import Contacts" onPress={importDeviceContacts} />
+			<Button title='Import Contacts' onPress={importDeviceContacts} />
 			<ContactList data={filterdContacts}></ContactList>
 			<CreateContactModal
 				isOpen={isCreateModalOpen}

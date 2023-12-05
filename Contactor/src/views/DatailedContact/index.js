@@ -21,7 +21,6 @@ const DetailedContacts = () => {
 
 	const deleteCurrentContact = () => {
 		const initializeContacts = async () => {
-			console.log("user filename ", user);
 			try {
 				await deleteContact(user.fileName);
 				navigate("Contacts");
