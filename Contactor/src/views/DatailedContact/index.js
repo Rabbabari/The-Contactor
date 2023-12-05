@@ -1,32 +1,33 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Image, Alert } from "react-native";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { View } from "react-native";
+import { useRoute } from "@react-navigation/native";
 import ContactDetail from "../../components/ContactDetail";
 import ContactEditModal from "../../components/ContactEditModal";
 
-const DetailedContacts = ({}) => {
+const DetailedContacts = () => {
 	const [isContactEditModalOpen, setIsContactEditModalOpen] = useState(false);
 	const [editingContact, setEditingContact] = useState(null);
-	const [currentContact, setCurrentContact] = useState([]);
 
-	// const uuid = route.params?.uuid;
+	// Example current contact data
+	const route = useRoute();
+	const { name, phoneNumber, photo } = route.params;
 
 	const editContact = () => {
-		// A function to edit a contact
-
 		setIsContactEditModalOpen(true);
 	};
 
 	return (
 		<View style={{ flex: 1 }}>
 			<ContactDetail
-				editCurrentContact={() => editContact(currentContact)}
+				name={name}
+				number={phoneNumber}
+				photo={photo}
+				editCurrentContact={() => editContact()}
 			/>
 			<ContactEditModal
 				isOpen={isContactEditModalOpen}
 				closeModal={() => setIsContactEditModalOpen(false)}
 				contact={editingContact}
-				// onUpdateList={onUpdateList}
 			/>
 		</View>
 	);
