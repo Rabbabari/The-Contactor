@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import { Entypo } from "@expo/vector-icons";
 import { TouchableOpacity, View, Text, TextInput, Alert } from "react-native";
@@ -10,6 +11,7 @@ const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
 	const [name, setContactName] = useState("");
 	const [phoneNumber, setPhoneNumber] = useState(null);
 	const [photo, setContactPhoto] = useState("");
+	const { navigate } = useNavigation();
 
 	const selectFromCameraRoll = async () => {
 		const permissionResult =
@@ -41,6 +43,7 @@ const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
 			console.log("here?");
 			updateContact(name, phoneNumber, photo);
 			closeModal();
+			navigate("Contacts");
 		}
 	};
 
@@ -65,9 +68,9 @@ const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
 				<TouchableOpacity onPress={() => selectFromCameraRoll()}>
 					<Entypo
 						style={styles.icon}
-						name="image"
+						name='image'
 						size={24}
-						color="black"
+						color='black'
 						value={photo}
 					/>
 				</TouchableOpacity>
@@ -87,7 +90,7 @@ EditContactModal.propTypes = {
 	// A user to be updated
 	user: PropTypes.object,
 	// Function to update a user
-	updateUser: PropTypes.func,
+	updateContact: PropTypes.func,
 };
 
 export default EditContactModal;

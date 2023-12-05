@@ -30,19 +30,20 @@ const DetailedContacts = () => {
 		};
 		initializeContacts();
 		setContacts((prevContacts) => {
-			return prevContacts.filter((contact) => contact.id !== user.id);
+			return prevContacts.filter(
+				(contact) => contact.fileName !== user.fileName
+			);
 		});
 	};
 
 	const updateContact = (newName, newNumber, newPhoto) => {
 		// TODO vesen my photo. er undefined
-		console.log("update contact");
 		user.name = newName;
 		user.phoneNumber = newNumber;
 		user.photo = newPhoto;
 		// console.log(newName);
 		// console.log(newNumber);
-		console.log("photo: ", newPhoto);
+		//console.log("photo: ", newPhoto);
 		editContact(user.fileName, newName, newNumber, newPhoto);
 	};
 

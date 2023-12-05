@@ -84,7 +84,7 @@ export const editContact = async (filename, name, number, photo) => {
 		// Update the specific contact information
 		existingData.name = name;
 		existingData.number = number;
-		// existingData.photo = newPhoto;
+		existingData.photo = photo;
 
 		// Write the updated data back to the file
 		await FileSystem.writeAsStringAsync(

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Button, Alert } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import styles from "./styles";
 import ContactList from "../../components/ContactList";
 import Toolbar from "../../components/Toolbar";
@@ -28,19 +28,18 @@ const ContactsComponent = ({}) => {
 	// 	}
 	// };
 
-	useFocusEffect(() => {
-		const initializeContacts = async () => {
-			try {
-				const storedContacts = await fileService.readContacts();
-				setContacts(storedContacts);
-				setFilteredContacts(storedContacts);
-			} catch (error) {
-				console.error("Error initializing contacts:", error);
-			}
-		};
+	useFocusEffect(
+		React.useCallback(() => {
+			// Function to fetch contacts
+			const fetchContacts = async () => {
+				const updatedContacts = await fileService.readContacts();
+				setContacts(updatedContacts);
+				setFilteredContacts(updatedContacts);
+			};
 
-		initializeContacts();
-	}, [contacts]);
+			fetchContacts();
+		}, [])
+	);
 
 	useEffect(() => {
 		// Sort and set filtered contacts when contacts or searchQuery change
@@ -62,7 +61,7 @@ const ContactsComponent = ({}) => {
 			phoneNumber: phoneNumber,
 			image: image,
 		};
-		setNewContact([...newContacts, newContact]);
+		//setNewContact([...newContacts, newContact]);
 		setContacts([...contacts, newContact]);
 		fileService.storeContact(newContact);
 	};
