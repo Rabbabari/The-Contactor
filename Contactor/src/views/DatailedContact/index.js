@@ -10,7 +10,7 @@ const DetailedContacts = () => {
 
 	// Example current contact data
 	const route = useRoute();
-	const { name, phoneNumber, photo } = route.params;
+	const { user } = route.params;
 	const editContact = () => {
 		setIsContactEditModalOpen(true);
 	};
@@ -18,15 +18,17 @@ const DetailedContacts = () => {
 	return (
 		<View style={{ flex: 1 }}>
 			<ContactDetail
-				name={name}
-				phoneNumber={phoneNumber}
-				photo={photo}
+				name={user.name}
+				phoneNumber={user.phoneNumber}
+				photo={user.photo}
 				editCurrentContact={() => editContact()}
 			/>
 			<ContactEditModal
+				// Does not take a user
 				isOpen={isContactEditModalOpen}
 				closeModal={() => setIsContactEditModalOpen(false)}
 				contact={editingContact}
+				user={user}
 			/>
 		</View>
 	);
