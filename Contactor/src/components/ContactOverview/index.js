@@ -1,10 +1,14 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
-import defaultProfileImage from "../../resources/noProfileImage.png";
+import noProfileImage from "../../resources/noProfileImage.png";
 import styles from "./styles";
 
 const Contact = ({ name, phoneNumber, photo }) => {
+	if (photo === "") {
+		photo = noProfileImage;
+		console.log("Profile image ", noProfileImage);
+	}
 	const { navigate } = useNavigation();
 	return (
 		<View style={styles.container}>
