@@ -3,12 +3,13 @@ import { View } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import ContactDetail from "../../components/ContactDetail";
 import ContactEditModal from "../../components/ContactEditModal";
-import { editContact } from "../../services/fileService";
+import { editContact, deleteContact } from "../../services/fileService";
 
 const DetailedContacts = () => {
 	const [isContactEditModalOpen, setIsContactEditModalOpen] = useState(false);
 	const [editingContact, setEditingContact] = useState(null);
 	const [contacts, setContacts] = useState([]);
+	const { navigate } = useNavigation();
 
 	// Example current contact data
 	const route = useRoute();
@@ -22,7 +23,8 @@ const DetailedContacts = () => {
 		const initializeContacts = async () => {
 			console.log("user filename ", user);
 			try {
-				await fileService.deleteContact(user.fileName);
+				await deleteContact(user.fileName);
+				navigate("Contacts");
 			} catch (error) {
 				console.error("Error initializing contacts:", error);
 			}
