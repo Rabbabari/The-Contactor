@@ -32,8 +32,8 @@ const Contacts = ({}) => {
 			const storedContacts = await fileService.readContacts();
 			setContacts(storedContacts);
 		};
-		setFilteredContacts(contacts);
 		initializeContacts();
+		setFilteredContacts(contacts);
 	}, []);
 
 	useEffect(() => {
