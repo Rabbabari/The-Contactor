@@ -42,6 +42,7 @@ export const deleteContact = async (contact) => {
 	console.log(contact);
 	try {
 		const filePath = `${contactDirectory}/${contact}`;
+		// console.log("in deleteContact fileservice ", contact);
 		await FileSystem.deleteAsync(filePath);
 		console.log(`User data deleted from ${filePath}`);
 	} catch (error) {
