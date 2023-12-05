@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, Image, Alert } from "react-native";
+import { View, Button, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import styles from "./styles";
 import ContactList from "../../components/ContactList";
@@ -7,8 +7,9 @@ import Toolbar from "../../components/Toolbar";
 import * as fileService from "../../services/fileService";
 import CreateContactModal from "../../components/CreateContactModal";
 import EditContactModal from "../../components/ContactEditModal";
+import * as Contacts from "expo-contacts";
 
-const Contacts = ({}) => {
+const ContactsComponent = ({}) => {
 	const [contacts, setContacts] = useState([]);
 	const [newContacts, setNewContact] = useState([]);
 	const navigation = useNavigation();
@@ -81,6 +82,35 @@ const Contacts = ({}) => {
 		);
 	};
 
+	const importDeviceContacts = async () => {
+		try {
+			const { status } = await Contacts.requestPermissionsAsync();
+			if (status === "granted") {
+				const { data } = await Contacts.getContactsAsync({
+					fields: [Contacts.Fields.PhoneNumbers],
+				});
+
+				if (data.length > 0) {
+					data.forEach((contact) => {
+						const name = contact.name;
+						let phoneNumber = contact.phoneNumbers[0]?.number || "";
+						phoneNumber = phoneNumber.replace(/\D/g, ""); // Removes all non-digit characters
+						let image = "";
+
+						if (contact.imageAvailable && contact.image) {
+							image = contact.image.uri;
+						}
+
+						addNewContact(name, phoneNumber, image);
+					});
+				}
+			}
+		} catch (error) {
+			console.error("Error importing contacts:", error);
+			// Handle the error appropriately
+		}
+	};
+
 	return (
 		<View style={styles.container}>
 			<Toolbar
@@ -88,6 +118,7 @@ const Contacts = ({}) => {
 				handelSearch={search}
 				createContact={() => setIsCreateModalOpen(true)}
 			/>
+			<Button title="Import Contacts" onPress={importDeviceContacts} />
 			<ContactList data={filterdContacts}></ContactList>
 			<CreateContactModal
 				isOpen={isCreateModalOpen}
@@ -98,4 +129,4 @@ const Contacts = ({}) => {
 	);
 };
 
-export default Contacts;
+export default ContactsComponent;
