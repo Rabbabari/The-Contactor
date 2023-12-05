@@ -29,11 +29,16 @@ const Contacts = ({}) => {
 
 	useEffect(() => {
 		const initializeContacts = async () => {
-			const storedContacts = await fileService.readContacts();
-			setContacts(storedContacts);
+			try {
+				const storedContacts = await fileService.readContacts();
+				setContacts(storedContacts);
+				setFilteredContacts(storedContacts);
+			} catch (error) {
+				console.error("Error initializing contacts:", error);
+			}
 		};
+
 		initializeContacts();
-		setFilteredContacts(contacts);
 	}, []);
 
 	useEffect(() => {

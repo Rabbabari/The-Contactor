@@ -5,7 +5,7 @@ import noProfileImage from "../../resources/noProfileImage.png";
 import styles from "./styles";
 
 const Contact = ({ name, phoneNumber, photo }) => {
-	if (!photo) {
+	if (photo === "") {
 		photo = noProfileImage;
 		console.log("Profile image ", noProfileImage);
 	}
