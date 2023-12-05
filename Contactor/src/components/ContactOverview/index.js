@@ -5,14 +5,13 @@ import styles from "./styles";
 
 const Contact = ({ name, phoneNumber, photo }) => {
 	const { navigate } = useNavigation();
-
 	return (
 		<View style={styles.container}>
 			<TouchableOpacity
 				onPress={() =>
 					navigate("DetailedContacts", {
 						name: name,
-						number: phoneNumber,
+						phoneNumber: phoneNumber,
 						photo: photo,
 					})
 				}
