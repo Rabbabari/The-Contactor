@@ -27,11 +27,18 @@ const Contacts = ({}) => {
 	// 	}
 	// };
 
-	useEffect(async () => {
-		const storedContacts = await fileService.readContacts();
-		setContacts(storedContacts);
+	useEffect(() => {
+		const initializeContacts = async () => {
+			try {
+				const storedContacts = await fileService.readContacts();
+				setContacts(storedContacts);
+				setFilteredContacts(storedContacts);
+			} catch (error) {
+				console.error("Error initializing contacts:", error);
+			}
+		};
 
-		setFilteredContacts(contacts);
+		initializeContacts();
 	}, []);
 
 	useEffect(() => {
