@@ -10,14 +10,13 @@ const Contact = ({ name, phoneNumber, photo }) => {
 		console.log("Profile image ", defaultProfileImage);
 	}
 	const { navigate } = useNavigation();
-
 	return (
 		<View style={styles.container}>
 			<TouchableOpacity
 				onPress={() =>
 					navigate("DetailedContacts", {
 						name: name,
-						number: phoneNumber,
+						phoneNumber: phoneNumber,
 						photo: photo,
 					})
 				}
