@@ -70,4 +70,31 @@ export const readContacts = async () => {
 	}
 };
 
+// editContact(user.fileName, newName, newNumber, newPhoto);
+export const editContact = async (filename, name, number, photo) => {
+	console.log("edit contact file service");
+	const filePath = `${contactDirectory}/${filename}`;
+
+	try {
+		// Read existing data from the file
+		const fileContents = await FileSystem.readAsStringAsync(filePath);
+		const existingData = JSON.parse(fileContents);
+
+		// Update the specific contact information
+		existingData.name = name;
+		existingData.number = number;
+		// existingData.photo = newPhoto;
+
+		// Write the updated data back to the file
+		await FileSystem.writeAsStringAsync(
+			filePath,
+			JSON.stringify(existingData)
+		);
+
+		console.log("Contact updated successfully");
+	} catch (error) {
+		console.error("Error editing contact:", error);
+	}
+};
+
 export const addImage = async (imageLocation) => {};

@@ -40,7 +40,7 @@ const ContactsComponent = ({}) => {
 		};
 
 		initializeContacts();
-	}, []);
+	}, [contacts]);
 
 	useEffect(() => {
 		// Sort and set filtered contacts when contacts or searchQuery change

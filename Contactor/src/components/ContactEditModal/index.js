@@ -38,7 +38,8 @@ const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
 		if (!name.trim() || !phoneNumber.trim()) {
 			Alert.alert("Error", "Please enter a name and phone number");
 		} else {
-			updateUser(user, name, phoneNumber, photo);
+			console.log("here?");
+			updateContact(name, phoneNumber, photo);
 			closeModal();
 		}
 	};
