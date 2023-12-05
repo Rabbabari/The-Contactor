@@ -7,7 +7,7 @@ const ContactDetail = ({ name, phoneNumber, photo, editCurrentContact }) => {
 	return (
 		<View style={styles.container}>
 			<View style={styles.imageContainer}>
-				<Image source={{ uri: photo }} style={styles.image} />
+				<Image source={photo} style={styles.image} />
 			</View>
 			<Text style={styles.name}>{name}</Text>
 			<Text style={styles.number}>{phoneNumber}</Text>
