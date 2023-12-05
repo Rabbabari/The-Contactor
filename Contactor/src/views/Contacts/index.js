@@ -32,6 +32,7 @@ const ContactsComponent = ({}) => {
 		React.useCallback(() => {
 			// Function to fetch contacts
 			const fetchContacts = async () => {
+				console.log("in useFocusEffect");
 				const updatedContacts = await fileService.readContacts();
 				setContacts(updatedContacts);
 				setFilteredContacts(updatedContacts);
@@ -65,6 +66,7 @@ const ContactsComponent = ({}) => {
 		setContacts([...contacts, newContact]);
 		fileService.storeContact(newContact);
 	};
+
 	// console.log("contacts");
 	// console.log(contacts);
 	// console.log("New contacts");

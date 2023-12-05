@@ -6,6 +6,7 @@ import { Entypo } from "@expo/vector-icons";
 import Modal from "../Modal"; // Importing custom modal component
 import styles from "../../styles/modal"; // Importing custom styles
 import { storeContact } from "../../services/fileService";
+import { useNavigation } from "@react-navigation/native";
 
 const CreateContactModal = ({ isOpen, closeModal, onAddNewContact }) => {
 	// State variables for the user name, phone number, and contact photo
@@ -13,6 +14,7 @@ const CreateContactModal = ({ isOpen, closeModal, onAddNewContact }) => {
 	const [phoneNumber, setPhoneNumber] = useState("");
 	const [photo, setContactPhoto] = useState("");
 	const [error, setError] = useState(false);
+	const { navigate } = useNavigation();
 
 	const selectFromCameraRoll = async () => {
 		const permissionResult =
