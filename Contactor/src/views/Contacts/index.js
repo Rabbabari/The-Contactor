@@ -27,13 +27,11 @@ const Contacts = ({}) => {
 	// 	}
 	// };
 
-	useEffect(() => {
-		const initializeContacts = async () => {
-			const storedContacts = await fileService.readContacts();
-			setContacts(storedContacts);
-		};
+	useEffect(async () => {
+		const storedContacts = await fileService.readContacts();
+		setContacts(storedContacts);
+
 		setFilteredContacts(contacts);
-		initializeContacts();
 	}, []);
 
 	useEffect(() => {
