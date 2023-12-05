@@ -5,6 +5,10 @@ import defaultProfileImage from "../../resources/noProfileImage.png";
 import styles from "./styles";
 
 const Contact = ({ name, phoneNumber, photo }) => {
+	if (!photo) {
+		photo = defaultProfileImage;
+		console.log("Profile image ", defaultProfileImage);
+	}
 	const { navigate } = useNavigation();
 
 	return (
