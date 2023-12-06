@@ -20,6 +20,7 @@ const ContactList = ({ data, callNumber }) => {
 						/>
 					);
 				}}
+				ListFooterComponent={<View style={{ height: 80 }} />}
 			/>
 		</View>
 	);
