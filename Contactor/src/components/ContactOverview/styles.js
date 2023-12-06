@@ -15,8 +15,6 @@ export default StyleSheet.create({
 	call: {
 		marginLeft: "auto",
 		paddingHorizontal: 20,
-		backgroundColor: "lime",
-		// alignSelf: "flex-end",
 	},
 	image: {
 		width: 70,

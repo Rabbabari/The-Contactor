@@ -27,12 +27,14 @@ export default StyleSheet.create({
 		marginBottom: 20,
 	},
 	button: {
-		backgroundColor: "#007bff",
-		padding: 10,
+		backgroundColor: "lightgrey",
+		padding: 15,
 		borderRadius: 5,
+		margin: 10,
+		width: 150,
 	},
 	buttonText: {
-		color: "white",
 		fontSize: 18,
+		textAlign: "center",
 	},
 });
