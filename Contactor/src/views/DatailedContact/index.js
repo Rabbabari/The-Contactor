@@ -37,12 +37,10 @@ const DetailedContacts = () => {
 	};
 
 	const updateContact = (newName, newNumber, newPhoto) => {
-		// TODO vesen með photo, er undefined
 		user.name = newName;
 		user.phoneNumber = newNumber;
 		user.photo = newPhoto;
-		//console.log("photo: ", newPhoto);
-		console.log(user.fileName);
+		// console.log(user.fileName);
 		editContact(user.fileName, newName, newNumber, newPhoto);
 	};
 

@@ -12,7 +12,13 @@ const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
 	const [phoneNumber, setPhoneNumber] = useState(null);
 	const [photo, setContactPhoto] = useState("");
 	const { navigate } = useNavigation();
-
+	useEffect(() => {
+		if (user) {
+			setContactName(user.name);
+			setPhoneNumber(user.phoneNumber);
+			setContactPhoto(user.photo);
+		}
+	}, [user]);
 	const selectFromCameraRoll = async () => {
 		const permissionResult =
 			await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -48,14 +54,6 @@ const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
 		setContactPhoto(result.uri);
 	};
 
-	useEffect(() => {
-		if (user) {
-			setContactName(user.name);
-			setPhoneNumber(user.phoneNumber);
-			setContactPhoto(user.image);
-		}
-	}, [user]);
-
 	const handleSubmit = () => {
 		if (!name.trim() || !phoneNumber.trim()) {
 			Alert.alert("Error", "Please enter a name and phone number");
@@ -87,18 +85,18 @@ const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
 				<TouchableOpacity onPress={() => selectFromCameraRoll()}>
 					<Entypo
 						style={styles.icon}
-						name='image'
+						name="image"
 						size={24}
-						color='black'
+						color="black"
 						value={photo}
 					/>
 				</TouchableOpacity>
 				<TouchableOpacity onPress={() => takePhoto()}>
 					<Entypo
 						style={styles.icon}
-						name='camera'
+						name="camera"
 						size={24}
-						color='black'
+						color="black"
 						value={photo}
 					/>
 				</TouchableOpacity>
