@@ -27,14 +27,23 @@ export default StyleSheet.create({
 		marginBottom: 20,
 	},
 	button: {
-		backgroundColor: "lightgrey",
+		backgroundColor: "#A5A5F7",
 		padding: 15,
-		borderRadius: 5,
+		borderRadius: 9,
 		margin: 10,
-		width: 150,
+		width: 200,
+		shadowColor: "#000",
+		shadowOffset: {
+			width: 7,
+			height: 7,
+		},
+		shadowOpacity: 0.2,
+		shadowRadius: 3.84,
+		elevation: 5,
 	},
 	buttonText: {
 		fontSize: 18,
 		textAlign: "center",
+		fontWeight: "bold",
 	},
 });

@@ -1,7 +1,13 @@
 import React from "react";
 // import PropTypes from "prop-types";
-import { Entypo } from "@expo/vector-icons";
-import { View, TextInput, Text, TouchableHighlight } from "react-native";
+import { Entypo, Ionicons } from "@expo/vector-icons";
+import {
+	View,
+	TextInput,
+	Text,
+	TouchableHighlight,
+	TouchableOpacity,
+} from "react-native";
 import styles from "../../styles/toolbar";
 
 const Toolbar = ({
@@ -9,6 +15,7 @@ const Toolbar = ({
 	handelSearch,
 	createContact,
 	importDeviceContacts,
+	clearContacts,
 }) => {
 	// Checking if exactly one list is selected for enabling the Edit functionality
 
@@ -17,10 +24,10 @@ const Toolbar = ({
 			<View style={styles.row}>
 				<View style={styles.searchBox}>
 					<TextInput
-						placeholder="search..."
-						clearButtonMode="always"
+						placeholder='search...'
+						clearButtonMode='always'
 						style={styles.toolbarText}
-						autoCapitalize="none"
+						autoCapitalize='none'
 						autoCorrect={false}
 						value={searchQuery}
 						onChangeText={(query) => handelSearch(query)}
@@ -30,20 +37,27 @@ const Toolbar = ({
 					style={styles.addNewContact}
 					onPress={createContact}
 				>
-					<Entypo
-						style={styles.icon}
-						name="plus"
-						size={40}
-						color="black"
-					/>
+					<Entypo name='plus' size={40} color='black' />
 				</TouchableHighlight>
 			</View>
-			<View style={styles.importContactsContainer}>
-				<TouchableHighlight
+			<View style={styles.row}>
+				<TouchableOpacity
 					style={styles.importContacts}
 					onPress={importDeviceContacts}
 				>
 					<Text style={styles.toolbarText}>Import Contacts</Text>
+				</TouchableOpacity>
+				<TouchableHighlight
+					style={styles.deleteAllContacts}
+					onPress={createContact}
+				>
+					<Ionicons
+						style={styles.icon}
+						name='trash-outline'
+						size={40}
+						color='black'
+						onPress={clearContacts}
+					/>
 				</TouchableHighlight>
 			</View>
 		</View>
