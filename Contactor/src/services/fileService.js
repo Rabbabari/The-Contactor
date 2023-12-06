@@ -54,19 +54,30 @@ export const deleteContact = async (contact) => {
 };
 
 export const readContacts = async () => {
-	await setUpDirectory();
 	try {
+		await setUpDirectory();
+		// Read the contacts from the directory
 		const fileNames = await FileSystem.readDirectoryAsync(contactDirectory);
 		const validFiles = fileNames.filter(
 			(path) => !path.includes(".DS_Store")
 		);
-		const contactsPromises = validFiles.map(async (fileName) => {
+		const contacts = [];
+		for (const fileName of validFiles) {
 			const filePath = `${contactDirectory}/${fileName}`;
-			const fileContents = await FileSystem.readAsStringAsync(filePath);
-			const contact = JSON.parse(fileContents);
-			return { ...contact, fileName };
-		});
-		const contacts = await Promise.all(contactsPromises);
+			try {
+				// Check if the file exists before reading
+				const fileInfo = await FileSystem.getInfoAsync(filePath);
+				if (fileInfo.exists) {
+					const fileContents = await FileSystem.readAsStringAsync(
+						filePath
+					);
+					const contact = JSON.parse(fileContents);
+					contacts.push({ ...contact, fileName });
+				}
+			} catch (error) {
+				console.error(`Error reading file ${filePath}:`, error);
+			}
+		}
 		return contacts;
 	} catch (error) {
 		console.error("Error reading contacts:", error);
@@ -74,7 +85,6 @@ export const readContacts = async () => {
 	}
 };
 
-// editContact(user.fileName, newName, newNumber, newPhoto);
 export const editContact = async (filename, name, number, photo) => {
 	console.log(filename);
 	const filePath = `${contactDirectory}/${filename}`;
