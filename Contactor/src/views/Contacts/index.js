@@ -21,12 +21,6 @@ const ContactsComponent = ({}) => {
 
 	const [filterdContacts, setFilteredContacts] = useState(contacts);
 
-	// const takePhoto = async () => {
-	// 	const photo = await imageService.takePhoto();
-	// 	if (photo.length > 0) {
-	// 		await fileService.addImage(photo);
-	// 	}
-	// };
 	useEffect(() => {
 		const initializeContacts = async () => {
 			const storedContacts = await fileService.readContacts();
