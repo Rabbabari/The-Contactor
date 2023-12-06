@@ -72,15 +72,13 @@ const CreateContactModal = ({ isOpen, closeModal, onAddNewContact }) => {
 	};
 	return (
 		<Modal isOpen={isOpen} closeModal={closeModal}>
-			<Text style={styles.text}>Name</Text>
-			<View>
+			<View style={styles.body}>
 				<TextInput
 					style={styles.textInput}
 					placeholder='Name'
 					value={name}
 					onChangeText={setContactName}
 				/>
-				<Text style={styles.text}>Phone number</Text>
 				<TextInput
 					style={styles.textInput}
 					placeholder='Phone number'
@@ -88,25 +86,26 @@ const CreateContactModal = ({ isOpen, closeModal, onAddNewContact }) => {
 					onChangeText={setPhoneNumber}
 					keyboardType='numeric'
 				/>
-
-				<TouchableOpacity onPress={() => selectFromCameraRoll()}>
-					<Entypo
-						style={styles.icon}
-						name='image'
-						size={26}
-						color='black'
-						value={photo}
-					/>
-				</TouchableOpacity>
-				<TouchableOpacity onPress={() => takePhoto()}>
-					<Entypo
-						style={styles.icon}
-						name='camera'
-						size={26}
-						color='black'
-						value={photo}
-					/>
-				</TouchableOpacity>
+				<View style={styles.iconContainer}>
+					<TouchableOpacity onPress={() => selectFromCameraRoll()}>
+						<Entypo
+							style={styles.icon}
+							name='image'
+							size={26}
+							color='black'
+							value={photo}
+						/>
+					</TouchableOpacity>
+					<TouchableOpacity onPress={() => takePhoto()}>
+						<Entypo
+							style={styles.icon}
+							name='camera'
+							size={26}
+							color='black'
+							value={photo}
+						/>
+					</TouchableOpacity>
+				</View>
 				<TouchableOpacity style={styles.button} onPress={handleSubmit}>
 					<Text style={styles.text}>Submit</Text>
 				</TouchableOpacity>
