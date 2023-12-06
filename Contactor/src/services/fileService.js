@@ -85,7 +85,7 @@ export const readContacts = async () => {
 };
 
 export const editContact = async (filename, name, number, photo) => {
-	console.log(filename);
+	console.log("New photo ", photo);
 	const filePath = `${contactDirectory}/${filename}`;
 
 	try {
