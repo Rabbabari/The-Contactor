@@ -2,12 +2,9 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import { Ionicons, Feather } from "@expo/vector-icons";
-import noProfileImage from "../../resources/noProfileImage.png";
 import styles from "./styles";
 
 const Contact = ({ name, phoneNumber, photo, fileName, callNumber }) => {
-	// Checking if the photo is empty or not, if empty then use the noProfileImage
-
 	const { navigate } = useNavigation();
 	return (
 		<View style={styles.container}>

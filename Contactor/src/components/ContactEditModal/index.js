@@ -45,13 +45,12 @@ const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
 		const result = await ImagePicker.launchCameraAsync({
 			mediaTypes: ImagePicker.MediaTypeOptions.Images,
 			quality: 0.8,
-			uri: true,
 			aspect: [16, 9],
 		});
 		if (result.canceled) {
 			return "";
 		}
-		setContactPhoto(result.uri);
+		setContactPhoto(result.assets[0].uri);
 	};
 
 	const handleSubmit = () => {

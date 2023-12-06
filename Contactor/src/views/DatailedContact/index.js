@@ -37,7 +37,7 @@ const DetailedContacts = () => {
 	};
 
 	const updateContact = async (newName, newNumber, newPhoto) => {
-		console.log("New attibutes: ", newName, newName, newPhoto);
+		//console.log("New attibutes: ", newName, newName, newPhoto);
 		user.name = newName;
 		user.phoneNumber = newNumber;
 		user.photo = newPhoto;

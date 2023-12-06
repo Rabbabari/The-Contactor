@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Button } from "react-native";
+import { View, Button, Alert } from "react-native";
 // import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import call from "react-native-phone-call";
 import styles from "./styles";
@@ -105,6 +105,25 @@ const ContactsComponent = ({}) => {
 		}
 	};
 
+	const confirmDelete = () => {
+		Alert.alert(
+			"Confirm Delete", // Title of the alert
+			"Are you sure you want to delete all contacts?", // Message of the alert
+			[
+				{
+					text: "Cancel",
+					onPress: () => console.log("Cancel Pressed"),
+					style: "cancel",
+				},
+				{
+					text: "OK",
+					onPress: () => clearContacts(), // Replace with your delete function
+				},
+			],
+			{ cancelable: false } // Prevents dismissing the Alert by tapping outside of it
+		);
+	};
+
 	const clearContacts = async () => {
 		await fileService.cleanDirectory();
 	};
@@ -116,7 +135,7 @@ const ContactsComponent = ({}) => {
 				handelSearch={search}
 				createContact={() => setIsCreateModalOpen(true)}
 				importDeviceContacts={importDeviceContacts}
-				clearContacts={clearContacts}
+				clearContacts={confirmDelete}
 			/>
 			<ContactList
 				data={filterdContacts}
