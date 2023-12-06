@@ -83,9 +83,15 @@ const ContactsComponent = ({}) => {
 
 				if (data.length > 0) {
 					data.forEach((contact) => {
+						if (
+							!contact.name ||
+							contact.phoneNumbers.length === 0
+						) {
+							return;
+						}
 						const name = contact.name;
 						let phoneNumber = contact.phoneNumbers[0]?.number || "";
-						phoneNumber = phoneNumber.replace(/\D/g, ""); // Removes all non-digit characters
+						phoneNumber = phoneNumber.replace(/\D/g, "");
 						let image = "";
 
 						if (contact.imageAvailable && contact.image) {
@@ -98,7 +104,6 @@ const ContactsComponent = ({}) => {
 			}
 		} catch (error) {
 			console.error("Error importing contacts:", error);
-			// Handle the error appropriately
 		}
 	};
 
