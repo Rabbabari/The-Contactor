@@ -40,7 +40,6 @@ const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
 		if (!name.trim() || !phoneNumber.trim()) {
 			Alert.alert("Error", "Please enter a name and phone number");
 		} else {
-			console.log("here?");
 			updateContact(name, phoneNumber, photo);
 			closeModal();
 			navigate("Contacts");
@@ -68,9 +67,9 @@ const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
 				<TouchableOpacity onPress={() => selectFromCameraRoll()}>
 					<Entypo
 						style={styles.icon}
-						name='image'
+						name="image"
 						size={24}
-						color='black'
+						color="black"
 						value={photo}
 					/>
 				</TouchableOpacity>
