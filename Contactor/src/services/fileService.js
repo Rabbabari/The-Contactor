@@ -30,12 +30,11 @@ export const storeContact = async (user) => {
 		const contact = JSON.stringify({
 			name: user.name,
 			phoneNumber: user.phoneNumber,
-			photo: user.image,
+			photo: user.photo,
 		});
 
 		await FileSystem.writeAsStringAsync(filePath, contact);
-
-		console.log(`User data stored in ${filePath}`);
+		console.log(`User ${contact} stored in ${filePath}`);
 	} catch (error) {
 		console.error("Error storing user data:", error);
 	}
@@ -97,16 +96,14 @@ export const editContact = async (filename, name, number, photo) => {
 		// Update the specific contact information
 		existingData.name = name;
 		existingData.phoneNumber = number;
-		existingData.photo = photo;
+		existingData.photo.uri = photo;
 
 		// Write the updated data back to the file
 		await FileSystem.writeAsStringAsync(
 			filePath,
 			JSON.stringify(existingData)
 		);
-		console.log(existingData);
-
-		console.log("Contact updated successfully");
+		console.log(`Contact ${existingData.name} updated successfully`);
 	} catch (error) {
 		console.error("Error editing contact:", error);
 	}

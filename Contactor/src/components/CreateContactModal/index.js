@@ -12,7 +12,9 @@ const CreateContactModal = ({ isOpen, closeModal, onAddNewContact }) => {
 	// State variables for the user name, phone number, and contact photo
 	const [name, setContactName] = useState("");
 	const [phoneNumber, setPhoneNumber] = useState("");
-	const [photo, setContactPhoto] = useState("");
+	const [photo, setContactPhoto] = useState(
+		"https://www.ssrl-uark.com/wp-content/uploads/2014/06/no-profile-image.png"
+	);
 	const [error, setError] = useState(false);
 	const { navigate } = useNavigation();
 
@@ -47,7 +49,7 @@ const CreateContactModal = ({ isOpen, closeModal, onAddNewContact }) => {
 			aspect: [16, 9],
 		});
 		if (result.canceled) {
-			return "";
+			return;
 		}
 		setContactPhoto(result.uri);
 	};
@@ -63,10 +65,9 @@ const CreateContactModal = ({ isOpen, closeModal, onAddNewContact }) => {
 			Alert.alert("Error", "Please enter a name and phone number.");
 		} else {
 			await onAddNewContact(name, phoneNumber, photo);
+			setError(false);
 			setContactName("");
 			setPhoneNumber("");
-			setContactPhoto("");
-			setError(false);
 			closeModal();
 		}
 	};
@@ -75,33 +76,33 @@ const CreateContactModal = ({ isOpen, closeModal, onAddNewContact }) => {
 			<View style={styles.body}>
 				<TextInput
 					style={styles.textInput}
-					placeholder='Name'
+					placeholder="Name"
 					value={name}
 					onChangeText={setContactName}
 				/>
 				<TextInput
 					style={styles.textInput}
-					placeholder='Phone number'
+					placeholder="Phone number"
 					value={phoneNumber}
 					onChangeText={setPhoneNumber}
-					keyboardType='numeric'
+					keyboardType="numeric"
 				/>
 				<View style={styles.iconContainer}>
 					<TouchableOpacity onPress={() => selectFromCameraRoll()}>
 						<Entypo
 							style={styles.icon}
-							name='image'
+							name="image"
 							size={26}
-							color='black'
+							color="black"
 							value={photo}
 						/>
 					</TouchableOpacity>
 					<TouchableOpacity onPress={() => takePhoto()}>
 						<Entypo
 							style={styles.icon}
-							name='camera'
+							name="camera"
 							size={26}
-							color='black'
+							color="black"
 							value={photo}
 						/>
 					</TouchableOpacity>
