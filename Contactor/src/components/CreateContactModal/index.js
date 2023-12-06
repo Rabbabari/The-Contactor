@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { Text, TextInput, Alert, View, TouchableOpacity } from "react-native";
 import PropTypes from "prop-types";

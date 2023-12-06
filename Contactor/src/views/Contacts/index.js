@@ -89,7 +89,8 @@ const ContactsComponent = ({}) => {
 						const name = contact.name;
 						let phoneNumber = contact.phoneNumbers[0]?.number || "";
 						phoneNumber = phoneNumber.replace(/\D/g, "");
-						let image = "";
+						let image =
+							"https://www.ssrl-uark.com/wp-content/uploads/2014/06/no-profile-image.png";
 
 						if (contact.imageAvailable && contact.image) {
 							image = contact.image.uri;

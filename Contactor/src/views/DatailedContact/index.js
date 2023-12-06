@@ -36,12 +36,13 @@ const DetailedContacts = () => {
 		});
 	};
 
-	const updateContact = (newName, newNumber, newPhoto) => {
+	const updateContact = async (newName, newNumber, newPhoto) => {
+		console.log("New attibutes: ", newName, newName, newPhoto);
 		user.name = newName;
 		user.phoneNumber = newNumber;
 		user.photo = newPhoto;
 		// console.log(user.fileName);
-		editContact(user.fileName, newName, newNumber, newPhoto);
+		await editContact(user.fileName, newName, newNumber, newPhoto);
 	};
 
 	return (
