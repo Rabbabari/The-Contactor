@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Button } from "react-native";
 // import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import call from "react-native-phone-call";
 import styles from "./styles";
 import ContactList from "../../components/ContactList";
 import Toolbar from "../../components/Toolbar";
@@ -67,6 +68,16 @@ const ContactsComponent = ({}) => {
 			filteredData.sort((a, b) => a.name.localeCompare(b.name))
 		);
 	};
+	const callNumber = async (number) => {
+		console.log("Calling: ", number);
+		const args = {
+			number: number,
+			prompt: false,
+		};
+		call(args).catch((error) =>
+			console.log("Error while calling: ", error)
+		);
+	};
 
 	const importDeviceContacts = async () => {
 		try {
@@ -105,7 +116,10 @@ const ContactsComponent = ({}) => {
 				createContact={() => setIsCreateModalOpen(true)}
 			/>
 			<Button title="Import Contacts" onPress={importDeviceContacts} />
-			<ContactList data={filterdContacts}></ContactList>
+			<ContactList
+				data={filterdContacts}
+				callNumber={callNumber}
+			></ContactList>
 			<CreateContactModal
 				isOpen={isCreateModalOpen}
 				closeModal={() => setIsCreateModalOpen(false)}

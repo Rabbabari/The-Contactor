@@ -3,13 +3,20 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
 	container: {
 		flex: 1,
-		justifyContent: "center",
 		backgroundColor: "#f5f5f5",
+		// flexDirection: "row",
+		// alignItems: "center",
 	},
 	imageContainer: {
 		marginBottom: 20,
 		flexDirection: "row",
 		alignItems: "center",
+	},
+	call: {
+		marginLeft: "auto",
+		paddingHorizontal: 20,
+		backgroundColor: "lime",
+		// alignSelf: "flex-end",
 	},
 	image: {
 		width: 70,
