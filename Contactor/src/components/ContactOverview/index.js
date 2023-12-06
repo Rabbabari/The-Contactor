@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import noProfileImage from "../../resources/noProfileImage.png";
 import styles from "./styles";
 
-const Contact = ({ name, phoneNumber, photo, fileName }) => {
+const Contact = ({ name, phoneNumber, photo, fileName, callNumber }) => {
 	// Checking if the photo is empty or not, if empty then use the noProfileImage
 	let image = "";
 	if (photo === "") {
@@ -30,6 +30,12 @@ const Contact = ({ name, phoneNumber, photo, fileName }) => {
 			>
 				<Image source={image} style={styles.image} />
 				<Text style={styles.name}>{name}</Text>
+				<TouchableOpacity
+					style={styles.call}
+					onPress={() => callNumber(phoneNumber)}
+				>
+					<Text>Call</Text>
+				</TouchableOpacity>
 			</TouchableOpacity>
 		</View>
 	);

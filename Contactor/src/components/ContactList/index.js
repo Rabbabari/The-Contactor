@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, FlatList } from "react-native";
 import Contact from "../ContactOverview";
 
-const ContactList = ({ data }) => {
+const ContactList = ({ data, callNumber }) => {
 	return (
 		<View>
 			<FlatList
@@ -16,6 +16,7 @@ const ContactList = ({ data }) => {
 							phoneNumber={phoneNumber}
 							photo={photo}
 							fileName={fileName}
+							callNumber={callNumber}
 						/>
 					);
 				}}
