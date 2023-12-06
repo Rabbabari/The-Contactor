@@ -10,6 +10,10 @@ const setUpDirectory = async () => {
 	}
 };
 
+export const cleanDirectory = async () => {
+	await FileSystem.deleteAsync(contactDirectory);
+};
+
 export const storeContact = async (user) => {
 	await setUpDirectory();
 
