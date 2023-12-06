@@ -72,6 +72,7 @@ export const readContacts = async () => {
 
 // editContact(user.fileName, newName, newNumber, newPhoto);
 export const editContact = async (filename, name, number, photo) => {
+	console.log(filename);
 	const filePath = `${contactDirectory}/${filename}`;
 
 	try {
@@ -81,7 +82,7 @@ export const editContact = async (filename, name, number, photo) => {
 
 		// Update the specific contact information
 		existingData.name = name;
-		existingData.number = number;
+		existingData.phoneNumber = number;
 		existingData.photo = photo;
 
 		// Write the updated data back to the file
@@ -89,6 +90,7 @@ export const editContact = async (filename, name, number, photo) => {
 			filePath,
 			JSON.stringify(existingData)
 		);
+		console.log(existingData);
 
 		console.log("Contact updated successfully");
 	} catch (error) {

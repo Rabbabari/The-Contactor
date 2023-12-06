@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 import noProfileImage from "../../resources/noProfileImage.png";
 import styles from "./styles";
 
@@ -19,10 +19,10 @@ const Contact = ({ name, phoneNumber, photo, fileName, callNumber }) => {
 				onPress={() =>
 					navigate("DetailedContacts", {
 						user: {
-							fileName: fileName,
 							name: name,
 							phoneNumber: phoneNumber,
 							photo: image,
+							fileName: fileName,
 						},
 					})
 				}

@@ -42,6 +42,7 @@ const DetailedContacts = () => {
 		user.phoneNumber = newNumber;
 		user.photo = newPhoto;
 		//console.log("photo: ", newPhoto);
+		console.log(user.fileName);
 		editContact(user.fileName, newName, newNumber, newPhoto);
 	};
 
