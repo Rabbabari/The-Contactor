@@ -119,8 +119,8 @@ const ContactsComponent = ({}) => {
 				searchQuery={searchQuery}
 				handelSearch={search}
 				createContact={() => setIsCreateModalOpen(true)}
+				importDeviceContacts={importDeviceContacts}
 			/>
-			<Button title="Import Contacts" onPress={importDeviceContacts} />
 			<ContactList
 				data={filterdContacts}
 				callNumber={callNumber}
