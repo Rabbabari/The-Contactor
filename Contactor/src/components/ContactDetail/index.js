@@ -13,7 +13,7 @@ const ContactDetail = ({
 	return (
 		<View style={styles.container}>
 			<View style={styles.imageContainer}>
-				<Image source={photo} style={styles.image} />
+				<Image source={{ uri: photo }} style={styles.image} />
 			</View>
 			<Text style={styles.name}>{name}</Text>
 			<Text style={styles.number}>{phoneNumber}</Text>

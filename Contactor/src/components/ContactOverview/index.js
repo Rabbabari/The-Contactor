@@ -7,12 +7,7 @@ import styles from "./styles";
 
 const Contact = ({ name, phoneNumber, photo, fileName, callNumber }) => {
 	// Checking if the photo is empty or not, if empty then use the noProfileImage
-	let image = "";
-	if (photo === "") {
-		image = noProfileImage;
-	} else {
-		image = { uri: photo };
-	}
+
 	const { navigate } = useNavigation();
 	return (
 		<View style={styles.container}>
@@ -22,20 +17,20 @@ const Contact = ({ name, phoneNumber, photo, fileName, callNumber }) => {
 						user: {
 							name: name,
 							phoneNumber: phoneNumber,
-							photo: image,
+							photo: photo,
 							fileName: fileName,
 						},
 					})
 				}
 				style={styles.imageContainer}
 			>
-				<Image source={image} style={styles.image} />
+				<Image source={{ uri: photo }} style={styles.image} />
 				<Text style={styles.name}>{name}</Text>
 				<Ionicons
 					style={styles.call}
-					name="call-outline"
+					name='call-outline'
 					size={30}
-					color="black"
+					color='black'
 					onPress={() => callNumber(phoneNumber)}
 				/>
 			</TouchableOpacity>
