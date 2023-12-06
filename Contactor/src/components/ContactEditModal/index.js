@@ -27,6 +27,26 @@ const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
 		}
 		setContactPhoto(pickerResult.assets[0].uri);
 	};
+	const takePhoto = async () => {
+		const permissionResult =
+			await ImagePicker.requestCameraPermissionsAsync();
+
+		if (permissionResult.granted === false) {
+			alert("Permission to access camera is required!");
+			return;
+		}
+
+		const result = await ImagePicker.launchCameraAsync({
+			mediaTypes: ImagePicker.MediaTypeOptions.Images,
+			quality: 0.8,
+			uri: true,
+			aspect: [16, 9],
+		});
+		if (result.canceled) {
+			return "";
+		}
+		setContactPhoto(result.uri);
+	};
 
 	useEffect(() => {
 		if (user) {
@@ -67,9 +87,18 @@ const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
 				<TouchableOpacity onPress={() => selectFromCameraRoll()}>
 					<Entypo
 						style={styles.icon}
-						name="image"
+						name='image'
 						size={24}
-						color="black"
+						color='black'
+						value={photo}
+					/>
+				</TouchableOpacity>
+				<TouchableOpacity onPress={() => takePhoto()}>
+					<Entypo
+						style={styles.icon}
+						name='camera'
+						size={24}
+						color='black'
 						value={photo}
 					/>
 				</TouchableOpacity>
