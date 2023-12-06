@@ -42,7 +42,6 @@ export const deleteContact = async (contact) => {
 	console.log(contact);
 	try {
 		const filePath = `${contactDirectory}/${contact}`;
-		// console.log("in deleteContact fileservice ", contact);
 		await FileSystem.deleteAsync(filePath);
 		console.log(`User data deleted from ${filePath}`);
 	} catch (error) {
@@ -73,7 +72,6 @@ export const readContacts = async () => {
 
 // editContact(user.fileName, newName, newNumber, newPhoto);
 export const editContact = async (filename, name, number, photo) => {
-	console.log("edit contact file service");
 	const filePath = `${contactDirectory}/${filename}`;
 
 	try {

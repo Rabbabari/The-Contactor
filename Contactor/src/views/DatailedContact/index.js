@@ -37,12 +37,10 @@ const DetailedContacts = () => {
 	};
 
 	const updateContact = (newName, newNumber, newPhoto) => {
-		// TODO vesen my photo. er undefined
+		// TODO vesen með photo, er undefined
 		user.name = newName;
 		user.phoneNumber = newNumber;
 		user.photo = newPhoto;
-		// console.log(newName);
-		// console.log(newNumber);
 		//console.log("photo: ", newPhoto);
 		editContact(user.fileName, newName, newNumber, newPhoto);
 	};
@@ -58,7 +56,6 @@ const DetailedContacts = () => {
 				deleteCurrentContact={() => deleteCurrentContact()}
 			/>
 			<ContactEditModal
-				// Does not take a user
 				isOpen={isContactEditModalOpen}
 				closeModal={() => setIsContactEditModalOpen(false)}
 				contact={editingContact}
