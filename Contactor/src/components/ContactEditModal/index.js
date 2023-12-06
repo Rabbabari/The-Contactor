@@ -66,8 +66,8 @@ const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
 
 	return (
 		<Modal isOpen={isOpen} closeModal={closeModal}>
-			<Text style={styles.text}>Contact Name</Text>
-			<View>
+			<View style={styles.body}>
+				<Text style={styles.text}>Contact Name</Text>
 				<TextInput
 					style={styles.textInput}
 					placeholder={name}
@@ -82,6 +82,7 @@ const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
 					onChangeText={setPhoneNumber}
 				/>
 				<Text style={styles.text}>Choose Photo</Text>
+
 				<TouchableOpacity onPress={() => selectFromCameraRoll()}>
 					<Entypo
 						style={styles.icon}
@@ -100,6 +101,7 @@ const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
 						value={photo}
 					/>
 				</TouchableOpacity>
+
 				<TouchableOpacity style={styles.button} onPress={handleSubmit}>
 					<Text style={styles.text}>Submit</Text>
 				</TouchableOpacity>
