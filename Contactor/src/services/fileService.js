@@ -35,7 +35,7 @@ export const storeContact = async (user) => {
 
 		await FileSystem.writeAsStringAsync(filePath, contact);
 
-		console.log(`User data stored in ${filePath}`);
+		console.log(`User ${contact} stored in ${filePath}`);
 	} catch (error) {
 		console.error("Error storing user data:", error);
 	}

@@ -48,6 +48,7 @@ const ContactsComponent = ({}) => {
 			phoneNumber: phoneNumber,
 			image: image,
 		};
+		console.log("New Contact: ", newContact);
 		setContacts([...contacts, newContact]);
 		fileService.storeContact(newContact);
 	};
