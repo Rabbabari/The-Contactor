@@ -80,13 +80,9 @@ const ContactsComponent = ({}) => {
 				const { data } = await Contacts.getContactsAsync({
 					fields: [Contacts.Fields.PhoneNumbers],
 				});
-
 				if (data.length > 0) {
 					data.forEach((contact) => {
-						if (
-							!contact.name ||
-							contact.phoneNumbers.length === 0
-						) {
+						if (!contact.name || !contact.phoneNumbers) {
 							return;
 						}
 						const name = contact.name;
