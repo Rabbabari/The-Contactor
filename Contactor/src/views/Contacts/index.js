@@ -103,6 +103,10 @@ const ContactsComponent = ({}) => {
 		}
 	};
 
+	const clearContacts = async () => {
+		await fileService.cleanDirectory();
+	};
+
 	return (
 		<View style={styles.container}>
 			<Toolbar
@@ -110,6 +114,7 @@ const ContactsComponent = ({}) => {
 				handelSearch={search}
 				createContact={() => setIsCreateModalOpen(true)}
 				importDeviceContacts={importDeviceContacts}
+				clearContacts={clearContacts}
 			/>
 			<ContactList
 				data={filterdContacts}
