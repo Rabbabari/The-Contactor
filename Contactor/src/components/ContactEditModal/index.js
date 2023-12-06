@@ -82,26 +82,26 @@ const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
 					onChangeText={setPhoneNumber}
 				/>
 				<Text style={styles.text}>Choose Photo</Text>
-
-				<TouchableOpacity onPress={() => selectFromCameraRoll()}>
-					<Entypo
-						style={styles.icon}
-						name="image"
-						size={24}
-						color="black"
-						value={photo}
-					/>
-				</TouchableOpacity>
-				<TouchableOpacity onPress={() => takePhoto()}>
-					<Entypo
-						style={styles.icon}
-						name="camera"
-						size={24}
-						color="black"
-						value={photo}
-					/>
-				</TouchableOpacity>
-
+				<View style={styles.iconContainer}>
+					<TouchableOpacity onPress={() => selectFromCameraRoll()}>
+						<Entypo
+							style={styles.icon}
+							name='image'
+							size={24}
+							color='black'
+							value={photo}
+						/>
+					</TouchableOpacity>
+					<TouchableOpacity onPress={() => takePhoto()}>
+						<Entypo
+							style={styles.icon}
+							name='camera'
+							size={24}
+							color='black'
+							value={photo}
+						/>
+					</TouchableOpacity>
+				</View>
 				<TouchableOpacity style={styles.button} onPress={handleSubmit}>
 					<Text style={styles.text}>Submit</Text>
 				</TouchableOpacity>
