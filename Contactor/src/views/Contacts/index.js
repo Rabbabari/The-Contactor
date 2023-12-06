@@ -104,7 +104,7 @@ const ContactsComponent = ({}) => {
 				handelSearch={search}
 				createContact={() => setIsCreateModalOpen(true)}
 			/>
-			<Button title="Import Contacts" onPress={importDeviceContacts} />
+			<Button title='Import Contacts' onPress={importDeviceContacts} />
 			<ContactList data={filterdContacts}></ContactList>
 			<CreateContactModal
 				isOpen={isCreateModalOpen}
