@@ -94,9 +94,7 @@ const ContactsComponent = ({}) => {
 		try {
 			const { status } = await Contacts.requestPermissionsAsync();
 			if (status === "granted") {
-				const { data } = await Contacts.getContactsAsync({
-					fields: [Contacts.Fields.PhoneNumbers],
-				});
+				const { data } = await Contacts.getContactsAsync({});
 				if (data.length > 0) {
 					data.forEach((contact) => {
 						if (!contact.name || !contact.phoneNumbers) {
