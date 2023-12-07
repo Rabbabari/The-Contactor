@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import styles from "./styles";
 
@@ -6,7 +7,6 @@ const ContactDetail = ({
 	name,
 	phoneNumber,
 	photo,
-	fileName,
 	editCurrentContact,
 	deleteCurrentContact,
 }) => {
@@ -32,6 +32,14 @@ const ContactDetail = ({
 			</TouchableOpacity>
 		</View>
 	);
+};
+
+ContactDetail.propTypes = {
+	name: PropTypes.string.isRequired,
+	phoneNumber: PropTypes.string.isRequired,
+	photo: PropTypes.string.isRequired,
+	editCurrentContact: PropTypes.func.isRequired,
+	deleteCurrentContact: PropTypes.func.isRequired,
 };
 
 export default ContactDetail;
