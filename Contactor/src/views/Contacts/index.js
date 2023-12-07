@@ -1,37 +1,65 @@
 import React, { useState, useEffect } from "react";
-import { View, Button, Alert } from "react-native";
-// import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import { View, Alert } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import call from "react-native-phone-call";
 import styles from "./styles";
 import ContactList from "../../components/ContactList";
 import Toolbar from "../../components/Toolbar";
 import * as fileService from "../../services/fileService";
 import CreateContactModal from "../../components/CreateContactModal";
-// import EditContactModal from "../../components/ContactEditModal";
 import * as Contacts from "expo-contacts";
 
 const ContactsComponent = ({}) => {
 	const [contacts, setContacts] = useState([]);
-	// const [newContacts, setNewContact] = useState([]);
-	// const navigation = useNavigation();
 	const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-	// A boolean flag to indicate if the modal to edit a board is open or not
-	// const [isEditMContactModalOpen, setIsEditContactModalOpen] =
-	// useState(false);
 	const [searchQuery, setSearchQuery] = useState("");
 
 	const [filterdContacts, setFilteredContacts] = useState(contacts);
 
-	useEffect(() => {
-		const initializeContacts = async () => {
+	useFocusEffect(
+		React.useCallback(() => {
+			// Function to fetch contacts
+			const fetchContacts = async () => {
+				const updatedContacts = await fileService.readContacts();
+				setContacts(updatedContacts);
+				setFilteredContacts(updatedContacts);
+			};
+
+			fetchContacts();
+		}, [])
+	);
+	// useEffect(() => {
+	// 	const initializeContacts = async () => {
+	// 		try {
+	// 			const storedContacts = await fileService.readContacts();
+	// 			setContacts(storedContacts);
+	// 			setFilteredContacts(storedContacts);
+	// 		} catch (error) {
+	// 			console.error("Error initializing contacts:", error);
+	// 		}
+	// 	};
+
+	// 	initializeContacts();
+	// }, []); // Empty dependencies array means the effect runs only once on mount
+
+	// Use a separate function to update contacts when needed
+	const updateContacts = async () => {
+		try {
 			const storedContacts = await fileService.readContacts();
 			setContacts(storedContacts);
 			setFilteredContacts(storedContacts);
-		};
+		} catch (error) {
+			console.error("Error updating contacts:", error);
+		}
+	};
 
-		initializeContacts();
+	// Use the updateContacts function when you need to update contacts
+	// For example, you can call it in response to user actions, like adding or deleting contacts
+	// updateContacts();
+
+	useEffect(() => {
 		setFilteredContacts((prevFilteredContacts) =>
-			[...prevFilteredContacts]
+			prevFilteredContacts
 				.filter((contact) =>
 					contact.name
 						.toLowerCase()
@@ -39,7 +67,26 @@ const ContactsComponent = ({}) => {
 				)
 				.sort((a, b) => a.name.localeCompare(b.name))
 		);
-	}, [contacts]);
+	}, [searchQuery, contacts]); // Run when searchQuery or contacts change
+
+	// useEffect(() => {
+	// 	const initializeContacts = async () => {
+	// 		const storedContacts = await fileService.readContacts();
+	// 		setContacts(storedContacts);
+	// 		setFilteredContacts(storedContacts);
+	// 	};
+
+	// 	initializeContacts();
+	// 	setFilteredContacts((prevFilteredContacts) =>
+	// 		[...prevFilteredContacts]
+	// 			.filter((contact) =>
+	// 				contact.name
+	// 					.toLowerCase()
+	// 					.includes(searchQuery.toLowerCase())
+	// 			)
+	// 			.sort((a, b) => a.name.localeCompare(b.name))
+	// 	);
+	// }, [contacts]);
 
 	const addNewContact = (name, phoneNumber, image) => {
 		name, phoneNumber, image;
@@ -51,6 +98,7 @@ const ContactsComponent = ({}) => {
 		console.log("New Contact: ", newContact);
 		setContacts([...contacts, newContact]);
 		fileService.storeContact(newContact);
+		updateContacts();
 	};
 
 	const search = async (query) => {
@@ -91,11 +139,9 @@ const ContactsComponent = ({}) => {
 						phoneNumber = phoneNumber.replace(/\D/g, "");
 						let image =
 							"https://www.ssrl-uark.com/wp-content/uploads/2014/06/no-profile-image.png";
-
 						if (contact.imageAvailable && contact.image) {
 							image = contact.image.uri;
 						}
-
 						addNewContact(name, phoneNumber, image);
 					});
 				}
@@ -103,6 +149,7 @@ const ContactsComponent = ({}) => {
 		} catch (error) {
 			console.error("Error importing contacts:", error);
 		}
+		updateContacts();
 	};
 
 	const confirmDelete = () => {
@@ -117,7 +164,7 @@ const ContactsComponent = ({}) => {
 				},
 				{
 					text: "OK",
-					onPress: () => clearContacts(), // Replace with your delete function
+					onPress: () => clearContacts(),
 				},
 			],
 			{ cancelable: false } // Prevents dismissing the Alert by tapping outside of it
@@ -126,6 +173,7 @@ const ContactsComponent = ({}) => {
 
 	const clearContacts = async () => {
 		await fileService.cleanDirectory();
+		updateContacts();
 	};
 
 	return (
