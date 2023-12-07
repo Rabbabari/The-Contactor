@@ -11,14 +11,15 @@ const DetailedContacts = () => {
 	const [contacts, setContacts] = useState([]);
 	const { navigate } = useNavigation();
 
-	// Example current contact data
 	const route = useRoute();
 	const { user } = route.params;
 
+	// Toggle the edit contact modal
 	const toggleEditContact = () => {
 		setIsContactEditModalOpen(true);
 	};
 
+	// Delete a selected contact
 	const deleteCurrentContact = () => {
 		const initializeContacts = async () => {
 			try {
@@ -36,12 +37,11 @@ const DetailedContacts = () => {
 		});
 	};
 
+	// Update contact
 	const updateContact = async (newName, newNumber, newPhoto) => {
-		//console.log("New attibutes: ", newName, newName, newPhoto);
 		user.name = newName;
 		user.phoneNumber = newNumber;
 		user.photo = newPhoto;
-		// console.log(user.fileName);
 		await editContact(user.fileName, newName, newNumber, newPhoto);
 	};
 

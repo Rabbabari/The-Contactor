@@ -13,9 +13,9 @@ const ContactsComponent = ({}) => {
 	const [contacts, setContacts] = useState([]);
 	const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 	const [searchQuery, setSearchQuery] = useState("");
-
 	const [filterdContacts, setFilteredContacts] = useState(contacts);
 
+	// Fetching contacts from file system
 	useFocusEffect(
 		React.useCallback(() => {
 			// Function to fetch contacts
@@ -28,19 +28,6 @@ const ContactsComponent = ({}) => {
 			fetchContacts();
 		}, [])
 	);
-	// useEffect(() => {
-	// 	const initializeContacts = async () => {
-	// 		try {
-	// 			const storedContacts = await fileService.readContacts();
-	// 			setContacts(storedContacts);
-	// 			setFilteredContacts(storedContacts);
-	// 		} catch (error) {
-	// 			console.error("Error initializing contacts:", error);
-	// 		}
-	// 	};
-
-	// 	initializeContacts();
-	// }, []); // Empty dependencies array means the effect runs only once on mount
 
 	// Use a separate function to update contacts when needed
 	const updateContacts = async () => {
@@ -53,10 +40,7 @@ const ContactsComponent = ({}) => {
 		}
 	};
 
-	// Use the updateContacts function when you need to update contacts
-	// For example, you can call it in response to user actions, like adding or deleting contacts
-	// updateContacts();
-
+	// Filtering contacts based on search query
 	useEffect(() => {
 		setFilteredContacts((prevFilteredContacts) =>
 			prevFilteredContacts
@@ -67,27 +51,9 @@ const ContactsComponent = ({}) => {
 				)
 				.sort((a, b) => a.name.localeCompare(b.name))
 		);
-	}, [searchQuery, contacts]); // Run when searchQuery or contacts change
+	}, [searchQuery, contacts]);
 
-	// useEffect(() => {
-	// 	const initializeContacts = async () => {
-	// 		const storedContacts = await fileService.readContacts();
-	// 		setContacts(storedContacts);
-	// 		setFilteredContacts(storedContacts);
-	// 	};
-
-	// 	initializeContacts();
-	// 	setFilteredContacts((prevFilteredContacts) =>
-	// 		[...prevFilteredContacts]
-	// 			.filter((contact) =>
-	// 				contact.name
-	// 					.toLowerCase()
-	// 					.includes(searchQuery.toLowerCase())
-	// 			)
-	// 			.sort((a, b) => a.name.localeCompare(b.name))
-	// 	);
-	// }, [contacts]);
-
+	// Adding a new contact
 	const addNewContact = (name, phoneNumber, image) => {
 		name, phoneNumber, image;
 		const newContact = {
@@ -95,12 +61,12 @@ const ContactsComponent = ({}) => {
 			phoneNumber: phoneNumber,
 			photo: image,
 		};
-		console.log("New Contact: ", newContact);
 		setContacts([...contacts, newContact]);
 		fileService.storeContact(newContact);
 		updateContacts();
 	};
 
+	// Search functionality
 	const search = async (query) => {
 		setSearchQuery(query);
 		const filteredData = contacts.filter((item) =>
@@ -111,8 +77,9 @@ const ContactsComponent = ({}) => {
 			filteredData.sort((a, b) => a.name.localeCompare(b.name))
 		);
 	};
+
+	// Calling a contact
 	const callNumber = async (number) => {
-		console.log("Calling: ", number);
 		const args = {
 			number: number,
 			prompt: false,
@@ -122,6 +89,7 @@ const ContactsComponent = ({}) => {
 		);
 	};
 
+	// Importing contacts from device
 	const importDeviceContacts = async () => {
 		try {
 			const { status } = await Contacts.requestPermissionsAsync();
@@ -152,10 +120,11 @@ const ContactsComponent = ({}) => {
 		updateContacts();
 	};
 
+	// Asking for confirmation before deleting all contacts
 	const confirmDelete = () => {
 		Alert.alert(
-			"Confirm Delete", // Title of the alert
-			"Are you sure you want to delete all contacts?", // Message of the alert
+			"Confirm Delete",
+			"Are you sure you want to delete all contacts?",
 			[
 				{
 					text: "Cancel",
@@ -167,10 +136,11 @@ const ContactsComponent = ({}) => {
 					onPress: () => clearContacts(),
 				},
 			],
-			{ cancelable: false } // Prevents dismissing the Alert by tapping outside of it
+			{ cancelable: false }
 		);
 	};
 
+	// Deleting all contacts
 	const clearContacts = async () => {
 		await fileService.cleanDirectory();
 		updateContacts();
