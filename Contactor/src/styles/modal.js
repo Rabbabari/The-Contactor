@@ -73,16 +73,4 @@ export default StyleSheet.create({
 		fontWeight: "bold",
 		fontSize: 17,
 	},
-	checkmark: {
-		position: "absolute",
-		top: "50%",
-		left: "50%",
-		transform: [{ translateX: -12 }, { translateY: -12 }],
-		color: "white",
-		fontSize: 24,
-	},
-	icon: {
-		fontSize: 60,
-		textAlign: "center",
-	},
 });

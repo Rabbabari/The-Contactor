@@ -42,9 +42,6 @@ export default StyleSheet.create({
 		paddingLeft: 10,
 		paddingBottom: 10,
 	},
-	importContactsContainer: {
-		width: "100%",
-	},
 	deleteAllContacts: {
 		marginTop: 20,
 		width: "20%",
