@@ -14,7 +14,6 @@ const setUpDirectory = async () => {
 export const cleanDirectory = async () => {
 	// Clears all files from the directory
 	await FileSystem.deleteAsync(contactDirectory);
-	console.log("All contacts successfully cleared.");
 };
 
 export const storeContact = async (user) => {
@@ -34,7 +33,6 @@ export const storeContact = async (user) => {
 		});
 		// Store contact in file
 		await FileSystem.writeAsStringAsync(filePath, contact);
-		console.log(`Contact ${contact} stored in ${filePath}.`);
 	} catch (error) {
 		console.error("Error storing contact data:", error);
 	}
@@ -42,12 +40,9 @@ export const storeContact = async (user) => {
 
 export const deleteContact = async (contact) => {
 	// Deletes a contact file
-	console.log("Deleting contact");
-	console.log(contact);
 	try {
 		const filePath = `${contactDirectory}/${contact}`;
 		await FileSystem.deleteAsync(filePath);
-		console.log(`Contact data deleted from ${filePath}`);
 	} catch (error) {
 		console.error("Error deleting contact data:", error);
 	}
@@ -104,7 +99,6 @@ export const editContact = async (filename, name, number, photo) => {
 			filePath,
 			JSON.stringify(existingData)
 		);
-		console.log(`Contact ${existingData.name} updated successfully`);
 	} catch (error) {
 		console.error("Error editing contact:", error);
 	}
