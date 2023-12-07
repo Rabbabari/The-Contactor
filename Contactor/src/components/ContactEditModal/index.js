@@ -8,10 +8,13 @@ import Modal from "../Modal";
 import styles from "../../styles/modal";
 
 const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
+	// State variables for the user name, phone number, and contact photo
 	const [name, setContactName] = useState("");
 	const [phoneNumber, setPhoneNumber] = useState(null);
 	const [photo, setContactPhoto] = useState("");
 	const { navigate } = useNavigation();
+
+	// Sets the name, number, and photo as the old values
 	useEffect(() => {
 		if (user) {
 			setContactName(user.name);
@@ -19,20 +22,25 @@ const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
 			setContactPhoto(user.photo);
 		}
 	}, [user]);
+
+	// Select a new image from the camera roll
 	const selectFromCameraRoll = async () => {
 		const permissionResult =
 			await ImagePicker.requestMediaLibraryPermissionsAsync();
 
+		// Get permission from user
 		if (permissionResult.granted === false) {
 			alert("Permission to access camera roll is required!");
 			return;
 		}
+		// Using imagePicker, get the photo from the user
 		const pickerResult = await ImagePicker.launchImageLibraryAsync();
 		if (pickerResult.canceled === true) {
 			return;
 		}
 		setContactPhoto(pickerResult.assets[0].uri);
 	};
+	// Add a new photo by using the camera function
 	const takePhoto = async () => {
 		const permissionResult =
 			await ImagePicker.requestCameraPermissionsAsync();
@@ -53,8 +61,10 @@ const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
 		setContactPhoto(result.assets[0].uri);
 	};
 
+	// Function to handle the submission of an updated user
 	const handleSubmit = () => {
 		if (!name.trim() || !phoneNumber.trim()) {
+			// The name and number have to be filled in
 			Alert.alert("Error", "Please enter a name and phone number");
 		} else {
 			updateContact(name, phoneNumber, photo);
@@ -85,18 +95,18 @@ const EditContactModal = ({ isOpen, closeModal, user, updateContact }) => {
 					<TouchableOpacity onPress={() => selectFromCameraRoll()}>
 						<Entypo
 							style={styles.icon}
-							name='image'
+							name="image"
 							size={24}
-							color='black'
+							color="black"
 							value={photo}
 						/>
 					</TouchableOpacity>
 					<TouchableOpacity onPress={() => takePhoto()}>
 						<Entypo
 							style={styles.icon}
-							name='camera'
+							name="camera"
 							size={24}
-							color='black'
+							color="black"
 							value={photo}
 						/>
 					</TouchableOpacity>

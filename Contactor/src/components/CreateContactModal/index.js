@@ -57,11 +57,13 @@ const CreateContactModal = ({ isOpen, closeModal, onAddNewContact }) => {
 	// Function to handle the submission of a new user
 	const handleSubmit = async () => {
 		if (!name.trim() || !phoneNumber.trim() || !isNumeric(phoneNumber)) {
+			// If the name or number is missing or if the phoneNumber includes letters
 			Alert.alert(
 				"Error",
 				"Please enter a name and phone number. The phone number must only contain digits."
 			);
 		} else {
+			// Adds the new contact and resets the name, number, and photo
 			await onAddNewContact(name, phoneNumber, photo);
 			setContactName("");
 			setPhoneNumber("");

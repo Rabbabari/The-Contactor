@@ -4,6 +4,7 @@ const contactDirectory = `${FileSystem.documentDirectory}contacts`;
 import { v4 as uuidv4 } from "uuid";
 
 const setUpDirectory = async () => {
+	// Gets the directory if it exists, otherwise creates it
 	const dir = await FileSystem.getInfoAsync(contactDirectory);
 	if (!dir.exists) {
 		await FileSystem.makeDirectoryAsync(contactDirectory);
@@ -11,29 +12,27 @@ const setUpDirectory = async () => {
 };
 
 export const cleanDirectory = async () => {
+	// Clears all files from the directory
 	await FileSystem.deleteAsync(contactDirectory);
 	console.log("All contacts successfully cleared.");
 };
 
 export const storeContact = async (user) => {
+	// Stores a contact in the directory
 	await setUpDirectory();
 
 	try {
-		const phoneNumberPattern = /^\d+$/;
-		if (!phoneNumberPattern.test(user.phoneNumber)) {
-			throw new Error(
-				"Phone number is invalid. It should contain only digits."
-			);
-		}
+		// generate a uuid for the filename
 		const uuid = uuidv4();
 		const filename = `${user.name}-${uuid}.json`;
 		const filePath = `${contactDirectory}/${filename}`;
+		// User input is turned into a json string
 		const contact = JSON.stringify({
 			name: user.name,
 			phoneNumber: user.phoneNumber,
 			photo: user.photo,
 		});
-
+		// Store contact in file
 		await FileSystem.writeAsStringAsync(filePath, contact);
 		console.log(`Contact ${contact} stored in ${filePath}.`);
 	} catch (error) {
@@ -42,6 +41,7 @@ export const storeContact = async (user) => {
 };
 
 export const deleteContact = async (contact) => {
+	// Deletes a contact file
 	console.log("Deleting contact");
 	console.log(contact);
 	try {
@@ -86,9 +86,9 @@ export const readContacts = async () => {
 };
 
 export const editContact = async (filename, name, number, photo) => {
-	// console.log(filename);
-	const filePath = `${contactDirectory}/${filename}`;
+	await setUpDirectory();
 
+	const filePath = `${contactDirectory}/${filename}`;
 	try {
 		// Read existing data from the file
 		const fileContents = await FileSystem.readAsStringAsync(filePath);

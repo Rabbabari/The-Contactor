@@ -1,7 +1,8 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { View, Text, TouchableOpacity, Image } from "react-native";
-import { Ionicons, Feather } from "@expo/vector-icons";
+import PropTypes from "prop-types";
+import { Ionicons } from "@expo/vector-icons";
 import styles from "./styles";
 
 const Contact = ({ name, phoneNumber, photo, fileName, callNumber }) => {
@@ -25,14 +26,22 @@ const Contact = ({ name, phoneNumber, photo, fileName, callNumber }) => {
 				<Text style={styles.name}>{name}</Text>
 				<Ionicons
 					style={styles.call}
-					name='call-outline'
+					name="call-outline"
 					size={30}
-					color='black'
+					color="black"
 					onPress={() => callNumber(phoneNumber)}
 				/>
 			</TouchableOpacity>
 		</View>
 	);
+};
+
+Contact.propTypes = {
+	name: PropTypes.string.isRequired,
+	phoneNumber: PropTypes.string.isRequired,
+	photo: PropTypes.string.isRequired,
+	fileName: PropTypes.string.isRequired,
+	callNumber: PropTypes.func.isRequired,
 };
 
 export default Contact;

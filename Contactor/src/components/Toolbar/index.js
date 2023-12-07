@@ -1,5 +1,5 @@
 import React from "react";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import {
 	View,
@@ -17,17 +17,15 @@ const Toolbar = ({
 	importDeviceContacts,
 	clearContacts,
 }) => {
-	// Checking if exactly one list is selected for enabling the Edit functionality
-
 	return (
 		<View style={styles.toolbar}>
 			<View style={styles.row}>
 				<View style={styles.searchBox}>
 					<TextInput
-						placeholder='search...'
-						clearButtonMode='always'
+						placeholder="search..."
+						clearButtonMode="always"
 						style={styles.toolbarText}
-						autoCapitalize='none'
+						autoCapitalize="none"
 						autoCorrect={false}
 						value={searchQuery}
 						onChangeText={(query) => handelSearch(query)}
@@ -37,7 +35,7 @@ const Toolbar = ({
 					style={styles.addNewContact}
 					onPress={createContact}
 				>
-					<Entypo name='plus' size={40} color='black' />
+					<Entypo name="plus" size={40} color="black" />
 				</TouchableHighlight>
 			</View>
 			<View style={styles.row}>
@@ -53,9 +51,9 @@ const Toolbar = ({
 				>
 					<Ionicons
 						style={styles.icon}
-						name='trash-outline'
+						name="trash-outline"
 						size={40}
-						color='black'
+						color="black"
 						onPress={clearContacts}
 					/>
 				</TouchableHighlight>
@@ -64,11 +62,13 @@ const Toolbar = ({
 	);
 };
 
-// Toolbar.propTypes = {
-// 	// Whether or not there are any selected boards
-// 	hasSelectedBoards: PropTypes.bool.isRequired,
-// 	onCreateBoard: PropTypes.func.isRequired,
-// 	deleteBoard: PropTypes.func.isRequired,
-// };
+Toolbar.propTypes = {
+	// Whether or not there are any selected boards
+	searchQuery: PropTypes.string.isRequired,
+	handelSearch: PropTypes.func.isRequired,
+	createContact: PropTypes.func.isRequired,
+	importDeviceContacts: PropTypes.func.isRequired,
+	clearContacts: PropTypes.func.isRequired,
+};
 
 export default Toolbar;

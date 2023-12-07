@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, FlatList } from "react-native";
+import { View, FlatList } from "react-native";
+import PropTypes from "prop-types";
 import Contact from "../ContactOverview";
 
 const ContactList = ({ data, callNumber }) => {
@@ -26,9 +27,9 @@ const ContactList = ({ data, callNumber }) => {
 	);
 };
 
-export default ContactList;
+ContactList.propTypes = {
+	data: PropTypes.array.isRequired,
+	callNumber: PropTypes.func.isRequired,
+};
 
-{
-	/* <Text>The list of all contacts</Text>
-			<Contact /> */
-}
+export default ContactList;
