@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { Text, TextInput, Alert, View, TouchableOpacity } from "react-native";
 import PropTypes from "prop-types";
 import { Entypo } from "@expo/vector-icons";
 import Modal from "../Modal"; // Importing custom modal component
 import styles from "../../styles/modal"; // Importing custom styles
-import { storeContact } from "../../services/fileService";
-import { useNavigation } from "@react-navigation/native";
 
 const CreateContactModal = ({ isOpen, closeModal, onAddNewContact }) => {
 	// State variables for the user name, phone number, and contact photo
+	const defaultImg =
+		"https://www.ssrl-uark.com/wp-content/uploads/2014/06/no-profile-image.png";
 	const [name, setContactName] = useState("");
 	const [phoneNumber, setPhoneNumber] = useState("");
-	const [photo, setContactPhoto] = useState(
-		"https://www.ssrl-uark.com/wp-content/uploads/2014/06/no-profile-image.png"
-	);
-	const [error, setError] = useState(false);
-	const { navigate } = useNavigation();
+	const [photo, setContactPhoto] = useState(defaultImg);
 
 	const selectFromCameraRoll = async () => {
 		const permissionResult =
@@ -60,14 +56,16 @@ const CreateContactModal = ({ isOpen, closeModal, onAddNewContact }) => {
 
 	// Function to handle the submission of a new user
 	const handleSubmit = async () => {
-		if (!name.trim() || !phoneNumber.trim()) {
-			setError(true);
-			Alert.alert("Error", "Please enter a name and phone number.");
+		if (!name.trim() || !phoneNumber.trim() || !isNumeric(phoneNumber)) {
+			Alert.alert(
+				"Error",
+				"Please enter a name and phone number. The phone number must only contain digits."
+			);
 		} else {
 			await onAddNewContact(name, phoneNumber, photo);
-			setError(false);
 			setContactName("");
 			setPhoneNumber("");
+			setContactPhoto(defaultImg);
 			closeModal();
 		}
 	};
